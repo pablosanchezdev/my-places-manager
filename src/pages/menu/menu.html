@@ -2,15 +2,21 @@
 
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-item no-lines>
+        <ion-avatar item-start>
+          <img src="https://i.pinimg.com/originals/af/25/49/af25490494d3338afef00869c59fdd37.png" alt="Imagen del usuario">
+        </ion-avatar>
+        <h2>Marty McFly</h2>
+        <p>November 5, 1955</p>
+      </ion-item>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
-      <button ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon item-start [name]="p.icon"></ion-icon>
-        {{ p.title }}
+      <button ion-item menuClose *ngFor="let page of pages" (click)="openPage(page)">
+        <ion-icon item-start [name]="page.icon"></ion-icon>
+        {{ page.title }}
       </button>
     </ion-list>
   </ion-content>
