@@ -1,3 +1,12 @@
-page-nearby-places-list {
+.page-nearby-places-list {
 
+  ion-card {
+    ion-card-content p {
+      font-style: italic;
+      color: #808080;
+    }
+    ion-item {
+      margin-top: -10px;
+    }
+  }
 }

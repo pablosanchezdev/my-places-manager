@@ -8,11 +8,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class NearbyPlacesListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) { }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NearbyPlacesListPage');
-  }
+  onItemClicked() {
 
+  }
 }
