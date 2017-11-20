@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
-/**
- * Generated class for the NearbyPlacesMapPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { } from '@types/googlemaps';
 
 @IonicPage()
 @Component({
@@ -15,11 +10,25 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class NearbyPlacesMapPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  @ViewChild('map') mapRef: ElementRef;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NearbyPlacesMapPage');
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public platform : Platform) { }
 
+  ionViewDidEnter() {
+    this.platform.ready().then(() => {
+      this.initMap();
+    });
+  }
+  
+  initMap() {
+    let uluru = {lat: 40.965001, lng: -5.663955};
+    let map = new google.maps.Map(this.mapRef.nativeElement, {
+      zoom: 13,
+      center: uluru
+    });
+    new google.maps.Marker({
+      position: uluru,
+      map: map
+    });
+  }
 }
