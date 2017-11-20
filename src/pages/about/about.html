@@ -1,15 +1,41 @@
 <ion-header>
 
   <ion-navbar>
-    <button ion-button menuToggle>
+    <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>about</ion-title>
+    <ion-title>Acerca de</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content padding class="center">
+  <ion-title>
+    <strong>My Places Manager</strong>
+  </ion-title>
+  <h6>
+    tu gestor de lugares favorito
+  </h6>
+  <p>
+    My Places Manager es una aplicación que permite al usuario buscar información sobre
+    varios tipos de lugares, filtrarlos por diversos parámetros y visualizarlos sobre un mapa.
+  </p>
+  <p>
+    También le permite gestionar sus propias listas de lugares, desde favoritos, visitados...
+    hasta listas personalizadas.
+  </p>
+  <p>
+    Para ello, hace uso de las APIs de <a href="https://developers.google.com/places/">places</a>
+    y <a href="https://developers.google.com/maps/">maps</a> de Google.
+  </p>
+  <ion-icon id="icon" name="ionic"></ion-icon>
+  <p>
+    Desarrollada usando <a href="https://ionicframework.com/">Ionic Framework</a>
+  </p>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title class="center">Developed by Pablo Sanchez</ion-title>
+  </ion-toolbar>
+</ion-footer>

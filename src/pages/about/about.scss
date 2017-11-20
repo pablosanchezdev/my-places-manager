@@ -1,3 +1,22 @@
 page-about {
 
+  .center {
+    text-align: center;
+    text-justify: distribute;
+  }
+
+  ion-content {
+    ion-title {
+      margin-top: 1rem;
+    }
+    h6 {
+      margin-bottom: 3rem;
+    }
+    p + p {
+      margin-top: 20px;
+    }
+    #icon {
+      font-size: 100px;
+    }
+  }
 }
