@@ -1,0 +1,35 @@
+.page-login {
+
+  $margin: 16px;
+
+  #container {
+    height: 100%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    position: relative;
+  }
+
+  #container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background-image: url('./../../assets/imgs/background.jpg');
+    opacity: 0.5;
+  }
+
+  #buttons-container {
+    position: absolute;
+    bottom: $margin;
+    right: $margin;
+    left: $margin;
+  }
+
+  button + button {
+    margin-top: $margin;
+  }
+}
