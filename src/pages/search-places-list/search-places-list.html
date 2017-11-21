@@ -1,14 +1,20 @@
 <ion-header>
 
   <ion-navbar>
-    <button ion-button menuToggle>
+    <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>search-places-list</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="funnel"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Buscar sitios</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content padding>
-  
+<ion-content>
+  <ion-searchbar (ionInput)="onInput($event.target.value)"></ion-searchbar>
+  <place-card></place-card>
 </ion-content>

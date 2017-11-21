@@ -9,14 +9,9 @@ import { TabInterface } from '../nearby-places-tabs/nearby-places-tabs';
 export class SearchPlacesTabsPage {
   
   tabs: TabInterface[] = [
-    { root: 'SearchPlacesListPage', name: 'Buscar lugar', icon: 'search' },
-    { root: 'SearchPlacesQueryListPage', name: 'Consultar lugar', icon: 'flag' },
+    { root: 'SearchPlacesListPage', name: 'Buscar', icon: 'search' },
     { root: 'SearchPlacesMapPage', name: 'Mapa', icon: 'map' }
   ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) { }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchPlacesTabsPage');
-  }
 }

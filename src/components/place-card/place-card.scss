@@ -1,0 +1,23 @@
+place-card {
+
+  #place-name {
+    font-size: 2rem;
+  }
+
+  #place-address {
+    font-style: italic;
+    color: #808080;
+  }
+
+  .row {
+    margin-top: -8px;
+  }
+
+  .place-open {
+    color: #32db62;
+  }
+
+  .place-closed {
+    color: #df1414;
+  }
+}

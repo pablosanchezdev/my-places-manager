@@ -10,8 +10,11 @@ export class SearchPlacesListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) { }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchPlacesListPage');
+  onInput(input: string) {
+    if (input) {
+      console.log(input);
+    } else {
+      console.log('vacio');
+    }
   }
-
 }

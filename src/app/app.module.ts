@@ -12,17 +12,17 @@ import { SearchPlacesTabsPage } from '../pages/search-places-tabs/search-places-
   declarations: [
     MyApp,
     NearbyPlacesTabsPage,
-    SearchPlacesTabsPage
+    SearchPlacesTabsPage,
   ],
   imports: [
-  BrowserModule,
-    IonicModule.forRoot(MyApp)
+    BrowserModule,
+    IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     NearbyPlacesTabsPage,
-    SearchPlacesTabsPage
+    SearchPlacesTabsPage,
   ],
   providers: [
     StatusBar,

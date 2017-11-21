@@ -1,0 +1,51 @@
+<ion-card>
+  <img src="http://viajes.elpais.com.uy/wp-content/uploads/peninsula-3-560x371.jpg" alt="Imagen del lugar">
+
+  <ion-item>
+    <h2 id="place-name">
+      Titulo
+    </h2>
+    <p id="place-address">
+      Direccion
+    </p>
+  </ion-item>
+
+  <ion-card-content>
+    <ion-row class="row">
+      <ion-col>
+        <div>
+          <ion-icon name="clock"></ion-icon>
+          <span [ngClass]="{'place-open': true, 'place-closed': false}">Abierto ahora</span>
+        </div>
+      </ion-col>
+      <ion-col text-right>
+        <div *ngIf="true">
+          <ion-icon name="star" style="color: #FFD700;"></ion-icon>
+          Puntuación
+          <ion-badge item-end color="secondary">9</ion-badge>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+
+  <ion-row no-padding class="row">
+    <ion-col>
+      <button ion-button clear small style="color: #FFD700;" icon-start>
+        <ion-icon name='star'></ion-icon>
+        FAV
+      </button>
+    </ion-col>
+    <ion-col text-center>
+      <button ion-button clear small color="secondary" icon-start>
+        <ion-icon name='list'></ion-icon>
+        LISTA
+      </button>
+    </ion-col>
+    <ion-col text-right>
+      <button ion-button clear small color="primary" icon-start>
+        <ion-icon name='share-alt'></ion-icon>
+        COMPARTIR
+      </button>
+    </ion-col>
+  </ion-row>  
+</ion-card>
