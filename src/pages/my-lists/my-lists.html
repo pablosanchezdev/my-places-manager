@@ -4,12 +4,38 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>my-lists</ion-title>
+    <ion-title>Mis listas</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
+
+  <ion-grid id="no-lists" *ngIf="false">
+    <div>
+      <h3>No tienes listas aún</h3>
+      <ion-icon name="albums"></ion-icon>
+      <h3>¡Crea una!</h3>
+    </div>
+  </ion-grid>
+
+  <ion-card>
+    <ion-card-header id="card-header">
+      Favoritos
+    </ion-card-header>
+    <ion-card-content id="card-content">
+      <ion-item>
+        <span id="desc">Lista de favoritos</span>
+        <button ion-button outline small item-end icon-left>
+          <ion-icon name="eye"></ion-icon>
+          VER
+        </button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab right bottom>
+    <button ion-fab><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 
 </ion-content>
