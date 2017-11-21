@@ -1,12 +1,25 @@
 .page-nearby-places-list {
 
   ion-card {
-    ion-card-content p {
-      font-style: italic;
-      color: #808080;
-    }
     ion-item {
-      margin-top: -10px;
+      h2 {
+        font-size: 2rem;
+      }
+      p {
+        font-style: italic;
+        color: #808080;
+      }
     }
+    ion-row {
+      margin-top: -8px;
+    }
+  }
+
+  .place-open {
+    color: #32db64;
+  }
+
+  .place-closed {
+    color: red;
   }
 }

@@ -1,15 +1,19 @@
 <ion-header>
 
   <ion-navbar>
+
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+
     <ion-buttons end>
       <button ion-button icon-only>
         <ion-icon name="funnel"></ion-icon>
       </button>
     </ion-buttons>
+
     <ion-title>Sitios cercanos</ion-title>
+
   </ion-navbar>
 
 </ion-header>
@@ -20,30 +24,62 @@
 
     <img src="http://viajes.elpais.com.uy/wp-content/uploads/peninsula-3-560x371.jpg" alt="Imagen del lugar">
     
-    <ion-card-content>
-      <ion-card-title no-padding>
+    <ion-item>
+      <h2>
         Titulo
-      </ion-card-title>
+      </h2>
       <p>
         Direccion
       </p>
+    </ion-item>
+
+    <ion-card-content>
+
+      <ion-row>
+
+        <ion-col>
+          <div>
+            <ion-icon name="clock"></ion-icon>
+            <span [ngClass]="{'place-open': true, 'place-closed': false}">Abierto ahora</span>
+          </div>
+        </ion-col>
+
+        <ion-col text-right>
+          <div *ngIf="true">
+            <ion-icon name="star" style="color: #FFD700;"></ion-icon>
+            Puntuación
+            <ion-badge item-end color="secondary">9</ion-badge>
+          </div>
+        </ion-col>
+
+      </ion-row>
+
     </ion-card-content>
 
-    <ion-item>
-      <ion-icon name="clock" item-start></ion-icon>
-      Abierto ahora o no
-    </ion-item>
+    <ion-row no-padding>
 
-    <ion-item *ngIf="true">
-      <ion-icon name="star" item-start style="color: #FFD700;"></ion-icon>
-      Puntuación
-      <ion-badge item-end color="secondary">9</ion-badge>
-    </ion-item>
+      <ion-col>
+        <button ion-button clear small style="color: #FFD700;" icon-start>
+          <ion-icon name='star'></ion-icon>
+          FAV
+        </button>
+      </ion-col>
 
-    <ion-item *ngIf="false">
-      <ion-icon name="alert" item-start></ion-icon>
-      Cerrado permanentemente
-    </ion-item>
+      <ion-col text-center>
+        <button ion-button clear small color="secondary" icon-start>
+          <ion-icon name='list'></ion-icon>
+          LISTA
+        </button>
+      </ion-col>
+
+      <ion-col text-right>
+        <button ion-button clear small color="primary" icon-start>
+          <ion-icon name='share-alt'></ion-icon>
+          COMPARTIR
+        </button>
+      </ion-col>
+
+    </ion-row>
     
   </ion-card>
 
