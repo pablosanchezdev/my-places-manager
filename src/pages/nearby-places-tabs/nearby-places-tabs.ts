@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-export interface TabInterface {
+interface TabInterface {
   root: string,
-  name: string,
+  title: string,
   icon: string
 }
 
+@IonicPage()
 @Component({
   selector: 'page-nearby-places-tabs',
   templateUrl: 'nearby-places-tabs.html',
@@ -14,8 +15,9 @@ export interface TabInterface {
 export class NearbyPlacesTabsPage {
 
   tabs: TabInterface[] = [
-    { root: 'NearbyPlacesListPage', name: 'Listado', icon: 'list-box' },
-    { root: 'NearbyPlacesMapPage', name: 'Mapa', icon: 'map' }
+    { root: 'NearbyPlacesListPage', title: 'Listado', icon: 'compass' },
+    { root: 'SearchPlacesListPage', title: 'Buscar', icon: 'search' },
+    { root: 'NearbyPlacesMapPage', title: 'Mapa', icon: 'map' }
   ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) { }
