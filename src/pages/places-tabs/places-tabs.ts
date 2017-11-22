@@ -9,10 +9,10 @@ interface TabInterface {
 
 @IonicPage()
 @Component({
-  selector: 'page-nearby-places-tabs',
-  templateUrl: 'nearby-places-tabs.html',
+  selector: 'page-places-tabs',
+  templateUrl: 'places-tabs.html',
 })
-export class NearbyPlacesTabsPage {
+export class PlacesTabsPage {
 
   tabs: TabInterface[] = [
     { root: 'NearbyPlacesListPage', title: 'Listado', icon: 'compass' },

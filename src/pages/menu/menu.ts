@@ -16,11 +16,12 @@ export class MenuPage {
 
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: string = 'NearbyPlacesTabsPage';
+  rootPage: string = 'PlacesTabsPage';
 
   pages: PageInterface[] = [
-    { title: 'Sitios cercanos', component: 'NearbyPlacesTabsPage', icon: 'pin' },
+    { title: 'Lugares', component: 'PlacesTabsPage', icon: 'pin' },
     { title: 'Mis listas', component: 'MyListsPage', icon: 'list' },
+    { title: 'Mi perfil', component: 'ProfilePage', icon: 'contact' },
     { title: 'Acerca de', component: 'AboutPage', icon: 'information-circle' }
   ];
 

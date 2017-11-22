@@ -1,0 +1,49 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Mi perfil</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div id="background">
+    <img id="image" src="http://placehold.it/120x120" alt="Imagen del usuario">
+  </div>
+
+  <p id="username" text-center>@username</p>
+
+  <div id="bio">
+    <p>Cita textual de usuario que no sabe que decir y esto es una prueba</p>
+    <ion-icon id="start-quote" name="quote"></ion-icon>
+    <ion-icon id="end-quote" name="quote"></ion-icon>
+  </div>
+  
+  <div id="lists" text-center>
+    <p *ngIf="true">No tienes listas creadas aún</p>
+    <p *ngIf="false">Tienes 4 listas</p>
+    <button ion-button text-uppercase icon-right disabled>
+      Ir a listas
+      <ion-icon name="albums"></ion-icon>
+    </button>
+  </div>
+
+</ion-content>
+
+
+<ion-footer>
+
+  <ion-toolbar>
+    <div text-center>
+      <button ion-button round outline text-uppercase>
+        Log out
+      </button>
+    </div>
+  </ion-toolbar>
+
+</ion-footer>
