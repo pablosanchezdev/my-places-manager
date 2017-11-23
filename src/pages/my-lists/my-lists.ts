@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ItemSliding } from 'ionic-angular/components/item/item-sliding';
+import { AlertController } from 'ionic-angular';
+import { ItemSliding } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -11,7 +12,8 @@ export class MyListsPage {
 
   lists: object[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+    public alertCtrl: AlertController) { }
 
   ionViewDidLoad() {
     this.lists = [
@@ -25,5 +27,39 @@ export class MyListsPage {
   delete(slidingItem: ItemSliding, list) {
     slidingItem.close();
     this.lists.splice(this.lists.indexOf(list), 1);
+  }
+
+  addList() {
+    this.alertCtrl.create({
+      title: 'Añadir lista',
+      message: 'Introduce nombre y descripción de la nueva lista',
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Nombre'
+        },
+        {
+          name: 'description',
+          placeholder: 'Descripción'
+        }
+      ],
+      buttons: [
+        { text: 'Cancel' },
+        {
+          text: 'Añadir',
+          handler: data => {
+            if (this.isValid(data.name, data.description)) {
+
+            } else {
+              return false;
+            }
+          }
+        }
+      ]
+    }).present();
+  }
+
+  isValid(name: string, description: string) {
+    return name && description;
   }
 }
