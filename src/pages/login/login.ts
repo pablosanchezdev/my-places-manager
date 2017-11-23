@@ -10,8 +10,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) { }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  login() {
+    this.navCtrl.setRoot('MenuPage');
   }
-
 }

@@ -3,18 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-start',
-  templateUrl: 'start.html',
+  selector: 'page-register',
+  templateUrl: 'register.html',
 })
-export class StartPage {
+export class RegisterPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) { }
-
-  login() {
-    this.navCtrl.push('LoginPage');
-  }
-
-  register() {
-    this.navCtrl.push('RegisterPage');
-  }
 }

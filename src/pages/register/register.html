@@ -1,15 +1,20 @@
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title>Log in</ion-title>
+  <ion-navbar>
+    <ion-title>Registro</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding class="page-login">
+<ion-content padding>
 
   <h1 id="title" text-center>My Places Manager</h1>
+
+  <ion-item>
+    <ion-label floating>Nombre de usuario</ion-label>
+    <ion-input clearInput="true"></ion-input>
+  </ion-item>
 
   <ion-item>
     <ion-label floating>Email</ion-label>
@@ -21,8 +26,13 @@
     <ion-input type="password" clearInput="true"></ion-input>
   </ion-item>
 
-  <button ion-button block large text-uppercase (click)="login()">
-    Log in
+  <ion-item>
+    <ion-label floating>Bio</ion-label>
+    <ion-input clearInput="true"></ion-input>
+  </ion-item>
+
+  <button ion-button block large text-uppercase>
+    Registro
   </button>
 
 </ion-content>
