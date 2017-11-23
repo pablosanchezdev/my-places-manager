@@ -1,38 +1,40 @@
 <ion-header>
 
   <ion-navbar>
+
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+
     <ion-title>Mis listas</ion-title>
+
   </ion-navbar>
 
 </ion-header>
 
+
 <ion-content padding>
+  
+  <div id="no-lists" *ngIf="false">
+    <h3>No tienes listas aún</h3>
+    <ion-icon name="albums"></ion-icon>
+    <h3>¡Crea una!</h3>
+  </div>
 
-  <ion-grid id="no-lists" *ngIf="false">
-    <div>
-      <h3>No tienes listas aún</h3>
-      <ion-icon name="albums"></ion-icon>
-      <h3>¡Crea una!</h3>
-    </div>
-  </ion-grid>
-
-  <ion-card>
-    <ion-card-header id="card-header">
-      Favoritos
-    </ion-card-header>
-    <ion-card-content id="card-content">
+  <ion-list>
+    <ion-item-sliding #slidingItem *ngFor="let list of lists">
       <ion-item>
-        <span id="desc">Lista de favoritos</span>
-        <button ion-button outline small item-end icon-left>
-          <ion-icon name="eye"></ion-icon>
-          VER
-        </button>
+        <h2>{{ list.name }}</h2>
+        <p>{{ list.description }}</p>
+        <span item-end>{{ list.numItems }} items</span>
       </ion-item>
-    </ion-card-content>
-  </ion-card>
+      <ion-item-options side="right" (ionSwipe)="delete(slidingItem, list)">
+        <button ion-button icon-only color="danger" (click)="delete(slidingItem, list)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
   <ion-fab right bottom>
     <button ion-fab><ion-icon name="add"></ion-icon></button>
