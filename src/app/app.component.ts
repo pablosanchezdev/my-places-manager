@@ -7,7 +7,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: string = 'LoginPage';
+
+  rootPage: string = 'StartPage';
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -18,4 +19,3 @@ export class MyApp {
     });
   }
 }
-
