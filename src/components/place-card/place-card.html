@@ -1,4 +1,4 @@
-<ion-card>
+<ion-card (click)="goToDetail()">
   <img src="http://viajes.elpais.com.uy/wp-content/uploads/peninsula-3-560x371.jpg" alt="Imagen del lugar">
 
   <ion-item>
@@ -30,7 +30,7 @@
 
   <ion-row no-padding class="row">
     <ion-col>
-      <button ion-button clear small style="color: #FFD700;" icon-start>
+      <button ion-button clear small style="color: #FFD700;" icon-start (click)="test()">
         <ion-icon name='star'></ion-icon>
         FAV
       </button>

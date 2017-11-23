@@ -1,0 +1,54 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Nombre sitio</ion-title>
+  </ion-navbar>
+
+</ion-header>
+  
+
+<ion-content>
+    
+  <ion-card>
+      
+    <img src="http://nuso.org/media/thumbs/articles/images/1uf4GZatYjqs.jpg" (click)="onImageClicked()">
+
+    <ion-card-content>
+
+      <ion-card-title>
+        Nombre sitio
+        <span id="address">Calle no se - Salamanca</span>
+      </ion-card-title>
+
+      <p id="types">
+        <strong>Tipos:</strong> point_of_interest, establishment, establishment, establishment
+      </p>
+
+      <ion-item no-padding>
+        <ion-icon name="heart" item-start color="danger"></ion-icon>
+        Rating
+        <ion-badge item-end>4.5</ion-badge>
+      </ion-item>
+
+      <ion-item no-padding>
+        <ion-icon name="call" item-start color="secondary"></ion-icon>
+        Teléfono
+        <span item-end>+34 923 45 65 76</span>
+      </ion-item>
+
+      <ion-item no-padding>
+        <ion-icon name="watch" item-start></ion-icon>
+        Huso horario
+        <span item-end>UTC -8</span>
+      </ion-item>
+
+      <ion-item no-padding>
+        <ion-icon name="link" item-start></ion-icon>
+        <a href="https://midominio.com" item-end>https://midominio.com</a>
+      </ion-item>
+      
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
 
 @Component({
   selector: 'place-card',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
 })
 export class PlaceCardComponent {
 
-  constructor() { }
+  constructor(public navCtrl: NavController) { }
+
+  goToDetail() {
+    this.navCtrl.push('PlaceDetailPage');
+  }
+
+  test() {}
 }
