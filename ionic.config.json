@@ -2,5 +2,7 @@
   "name": "my-places-manager",
   "app_id": "ead0fce2",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }
