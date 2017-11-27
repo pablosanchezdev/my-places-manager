@@ -1,28 +1,37 @@
 <ion-card (click)="goToDetail()">
-  <img src="http://viajes.elpais.com.uy/wp-content/uploads/peninsula-3-560x371.jpg" alt="Imagen del lugar">
 
+  <img [src]="imageUrl" alt="Imagen del lugar">
+  
   <ion-item>
     <h2 id="place-name">
-      Titulo
+      {{ place.name }}
     </h2>
-    <p id="place-address">
-      Direccion
+    <p *ngIf="place.vicinity" id="place-address">
+        {{ place.vicinity }}
+    </p>
+    <p *ngIf="place.formatted_address" id="place-address">
+      {{ place.formatted_address }}
     </p>
   </ion-item>
 
   <ion-card-content>
     <ion-row class="row">
-      <ion-col>
+      <ion-col *ngIf="place.opening_hours">
         <div>
           <ion-icon name="clock"></ion-icon>
-          <span [ngClass]="{'place-open': true, 'place-closed': false}">Abierto ahora</span>
+          <span *ngIf="place.opening_hours.open_now" class="place-open">
+            Abierto ahora
+          </span>
+          <span *ngIf="!place.opening_hours.open_now" class="place-closed">
+            Cerrado ahora
+          </span>
         </div>
       </ion-col>
-      <ion-col text-right>
-        <div *ngIf="true">
+      <ion-col *ngIf="place.rating">
+        <div>
           <ion-icon name="star" style="color: #FFD700;"></ion-icon>
           Puntuación
-          <ion-badge item-end color="secondary">9</ion-badge>
+          <ion-badge item-end color="secondary">{{ place.rating }}</ion-badge>
         </div>
       </ion-col>
     </ion-row>

@@ -5,4 +5,10 @@ import { Injectable } from '@angular/core';
 export class PlacesDataProvider {
 
   constructor(public http: HttpClient) { }
+
+  getNearbyPlaces(lat: number, lng: number) {
+    return this.http.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
+      + 'location=' + lat + ',' + lng
+      + '&radius=5000');
+  }
 }

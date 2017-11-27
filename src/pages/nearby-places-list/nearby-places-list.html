@@ -19,5 +19,5 @@
 </ion-header>
 
 <ion-content>
-  <place-card></place-card>
+  <place-card *ngFor="let place of places" [place]="place"></place-card>
 </ion-content>

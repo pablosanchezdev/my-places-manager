@@ -16,6 +16,8 @@ export class NearbyPlacesListPage {
   lat: number;
   lng: number;
 
+  places: object[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private geolocation: Geolocation, private alertCtrl: AlertController, 
     private loadingCtrl: LoadingController, private placesProvider: PlacesDataProvider,
@@ -33,6 +35,7 @@ export class NearbyPlacesListPage {
       loading.dismiss();
       this.lat = data.coords.latitude;
       this.lng = data.coords.longitude;
+      this.getPlaces();
     })
     .catch(err => {
       loading.dismiss();
@@ -40,6 +43,13 @@ export class NearbyPlacesListPage {
     });
     
     let loading = Utils.showLoading(this.loadingCtrl, 'Cargando ubicación...');
+  }
+
+  getPlaces() {
+    this.placesProvider.getNearbyPlaces(this.lat, this.lng)
+    .subscribe(data => {
+      this.places = data['results'];
+    });
   }
 
   presentSearchModal() {
