@@ -2,13 +2,13 @@
 
   <ion-navbar color="primary">
     <ion-buttons start>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="closeModal()">
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>Editar filtros</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="applyFilters()">
         <ion-icon name="checkmark"></ion-icon>
       </button>
     </ion-buttons>
@@ -94,7 +94,7 @@
 <ion-footer>
   <ion-toolbar>
     <div text-center>
-      <button ion-button round text-uppercase>
+      <button ion-button round text-uppercase (click)="resetFilters()">
         Resetear filtros
       </button>
     </div>

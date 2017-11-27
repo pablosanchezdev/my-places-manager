@@ -43,6 +43,14 @@ export class NearbyPlacesListPage {
   }
 
   presentSearchModal() {
-    this.modalCtrl.create('NearbyPlacesSearchModalPage').present();
+    let modal = this.modalCtrl.create('NearbyPlacesSearchModalPage');
+    
+    modal.onDidDismiss(data => {
+      if (data) {
+
+      }
+    });
+    
+    modal.present();
   }
 }

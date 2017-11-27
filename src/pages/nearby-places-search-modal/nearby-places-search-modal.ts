@@ -98,4 +98,23 @@ export class NearbyPlacesSearchModalPage {
       }
     });
   }
+
+  applyFilters() {
+    let filters = { keyword: this.keyword, price: this.price, type: this.type, 
+      sortByDistance: this.sortByDistance, language: this.language, openNow: this.openNow };
+    this.viewCtrl.dismiss(filters);
+  }
+
+  closeModal() {
+    this.viewCtrl.dismiss();
+  }
+
+  resetFilters() {
+    this.keyword = '';
+    this.price = { lower: 0, upper: 4 };
+    this.type = '';
+    this.sortByDistance = false;
+    this.language = 'es';
+    this.openNow = false;
+  }
 }
