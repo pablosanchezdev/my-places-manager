@@ -16,6 +16,7 @@ export class NearbyPlacesListPage {
   lat: number;
   lng: number;
 
+  nextPageToken: string;
   places: object[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -48,8 +49,25 @@ export class NearbyPlacesListPage {
   getPlaces() {
     this.placesProvider.getNearbyPlaces(this.lat, this.lng)
     .subscribe(data => {
-      this.places = data['results'];
+      this.nextPageToken = data.next_page_token;
+      this.places = data.results;
     });
+  }
+
+  loadMorePlaces(infiniteScroll) {
+    // Load more places when there are more available
+    if (this.nextPageToken) {
+      this.placesProvider.getNextNearbyPlaces(this.lat, this.lng, this.nextPageToken)
+      .subscribe(data => {
+        this.nextPageToken = data.next_page_token;
+        for (let i = 0; i < data.results.length; i++) {
+          this.places.push(data.results[i]);
+        }
+        infiniteScroll.complete();
+      });
+    } else {
+      infiniteScroll.complete();
+    }
   }
 
   presentSearchModal() {
