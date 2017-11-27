@@ -1,0 +1,102 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Editar filtros</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="page-nearby-places-search-modal">
+
+  <ion-list>
+    <ion-list-header>
+      Palabra clave - <span>sólo una</span>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Keyword</ion-label>
+      <ion-input [(ngModel)]="keyword"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      Rango de precios
+      <ion-badge item-end color="dark">{{ price.lower }}</ion-badge>
+      <ion-badge item-end color="dark">{{ price.upper }}</ion-badge>
+    </ion-list-header>
+    <ion-item>
+      <ion-range min="0" max="4" pin="true" snaps="true" dualKnobs="true" [(ngModel)]="price">
+        <ion-icon range-left small name="logo-euro"></ion-icon>
+        <ion-icon range-right name="logo-euro"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      Tipo de lugar
+    </ion-list-header>
+    <ion-item>
+      <ion-select [(ngModel)]="type" [selectOptions]="selectOptions" placeholder="Sin tipo">
+        <ion-option *ngFor="let type of types" [value]="type.value">{{ type.name }}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      Ordenación
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Ordenar por distancia</ion-label>
+      <ion-checkbox [(ngModel)]="sortByDistance" color="secondary" [checked]="sortByDistance"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list radio-group [(ngModel)]="language">
+    <ion-list-header>
+      Lenguaje
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Inglés</ion-label>
+      <ion-radio value="en"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Español</ion-label>
+      <ion-radio value="es"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      Horario
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Abierto ahora</ion-label>
+      <ion-toggle [(ngModel)]="openNow"></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+    <div text-center>
+      <button ion-button round text-uppercase>
+        Resetear filtros
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

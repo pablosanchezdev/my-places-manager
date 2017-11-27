@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
 import { AlertController, LoadingController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
+import { PlacesDataProvider } from '../../providers/places-data/places-data';
 import { Utils } from './../../utils/utils';
 
 @IonicPage()
@@ -16,7 +18,8 @@ export class NearbyPlacesListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private geolocation: Geolocation, private alertCtrl: AlertController, 
-    private loadingCtrl: LoadingController) { }
+    private loadingCtrl: LoadingController, private placesProvider: PlacesDataProvider,
+    public modalCtrl: ModalController) { }
 
   ionViewDidLoad() {
     if (!this.lat || !this.lng) {
@@ -37,5 +40,9 @@ export class NearbyPlacesListPage {
     });
     
     let loading = Utils.showLoading(this.loadingCtrl, 'Cargando ubicación...');
+  }
+
+  presentSearchModal() {
+    this.modalCtrl.create('NearbyPlacesSearchModalPage').present();
   }
 }
