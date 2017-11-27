@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Utils } from '../../utils/utils';
 
 @Component({
   selector: 'place-card',
@@ -14,14 +15,17 @@ export class PlaceCardComponent implements OnInit {
   constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
-    this.imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?photoreference='
-    + this.place.photos.photo_reference
-    + '&key=AIzaSyDs1o9mW-vhqMcBocjTQkZdGi5I2EXmt5I';
+    // Download first image of place
+    if (this.place.photos) {
+      this.imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?photoreference='
+      + this.place.photos[0].photo_reference
+      + '&key=' + Utils.apiKey;
+    } else {
+      this.imageUrl = 'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg';
+    }
   }
 
   goToDetail() {
     this.navCtrl.push('PlaceDetailPage');
   }
-
-  test() {}
 }

@@ -5,6 +5,8 @@ export class Utils {
 
   constructor() { }
 
+  static apiKey: string = 'AIzaSyDs1o9mW-vhqMcBocjTQkZdGi5I2EXmt5I';
+
   static showErrorAlert(alertCtrl: AlertController, errorMsg: string) {
     alertCtrl.create({
       title: 'Error',
