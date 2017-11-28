@@ -20,6 +20,11 @@
 
 <ion-content>
 
+  <div id="no-places" *ngIf="places?.length === 0">
+    <h3>Búsqueda sin resultados</h3>
+    <ion-icon name="remove-circle"></ion-icon>
+  </div>
+
   <place-card *ngFor="let place of places" [place]="place"></place-card>
 
   <ion-infinite-scroll (ionInfinite)="loadMorePlaces($event)">

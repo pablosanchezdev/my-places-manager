@@ -1,3 +1,14 @@
 page-nearby-places-list {
 
+  #no-places {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    ion-icon {
+      margin: 10px;
+      font-size: 100px;
+    }
+  }
 }
