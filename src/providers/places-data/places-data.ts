@@ -11,16 +11,15 @@ export class PlacesDataProvider {
 
   constructor(public http: HttpClient) { }
 
-  getNearbyPlaces(lat: number, lng: number) {
-    return this.http.get<PlacesResponse>('https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
+  getNearbyPlaces(lat: number, lng: number, token?: string) {
+    let request = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
       + 'location=' + lat + ',' + lng
-      + '&radius=5000');
-  }
+      + '&radius=5000';
 
-  getNextNearbyPlaces(lat: number, lng: number, nextToken: string) {
-    return this.http.get<PlacesResponse>('https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
-      + 'location=' + lat + ',' + lng
-      + '&radius=5000'
-      + '&pagetoken=' + nextToken);
+    if (token) {
+      request += '&pagetoken=' + token;
+    } 
+
+    return this.http.get<PlacesResponse>(request);
   }
 }

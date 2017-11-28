@@ -57,7 +57,7 @@ export class NearbyPlacesListPage {
   loadMorePlaces(infiniteScroll) {
     // Load more places when there are more available
     if (this.nextPageToken) {
-      this.placesProvider.getNextNearbyPlaces(this.lat, this.lng, this.nextPageToken)
+      this.placesProvider.getNearbyPlaces(this.lat, this.lng, this.nextPageToken)
       .subscribe(data => {
         this.nextPageToken = data.next_page_token;
         data.results.forEach(place => this.places.push(place));
@@ -73,7 +73,7 @@ export class NearbyPlacesListPage {
     
     modal.onDidDismiss(data => {
       if (data) {
-
+        
       }
     });
     
