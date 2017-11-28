@@ -15,7 +15,7 @@
 
 <ion-content padding>
   
-  <div id="no-lists" *ngIf="false">
+  <div id="no-lists" *ngIf="lists?.length === 0">
     <h3>No tienes listas aún</h3>
     <ion-icon name="albums"></ion-icon>
     <h3>¡Crea una!</h3>
@@ -26,7 +26,7 @@
       <ion-item>
         <h2>{{ list.name }}</h2>
         <p>{{ list.description }}</p>
-        <span item-end>{{ list.numItems }} items</span>
+        <ion-badge item-end>{{ list.numItems }} items</ion-badge>
       </ion-item>
       <ion-item-options side="right" (ionSwipe)="delete(slidingItem, list)">
         <button ion-button icon-only color="danger" (click)="delete(slidingItem, list)">

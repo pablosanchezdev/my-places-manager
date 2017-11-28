@@ -60,9 +60,7 @@ export class NearbyPlacesListPage {
       this.placesProvider.getNextNearbyPlaces(this.lat, this.lng, this.nextPageToken)
       .subscribe(data => {
         this.nextPageToken = data.next_page_token;
-        for (let i = 0; i < data.results.length; i++) {
-          this.places.push(data.results[i]);
-        }
+        data.results.forEach(place => this.places.push(place));
         infiniteScroll.complete();
       });
     } else {

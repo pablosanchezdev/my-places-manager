@@ -23,7 +23,7 @@
   <place-card *ngFor="let place of places" [place]="place"></place-card>
 
   <ion-infinite-scroll (ionInfinite)="loadMorePlaces($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    <ion-infinite-scroll-content loadingText="Cargando lugares..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
 </ion-content>
