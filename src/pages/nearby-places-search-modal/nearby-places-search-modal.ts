@@ -1,6 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ViewController } from 'ionic-angular';
+import { Utils } from '../../utils/utils';
+
+export interface FiltersData {
+  keyword: string,
+  type: string,
+  sortByDistance: boolean,
+  language: string,
+  openNow: boolean
+}
 
 @IonicPage()
 @Component({
@@ -10,7 +19,6 @@ import { ViewController } from 'ionic-angular';
 export class NearbyPlacesSearchModalPage {
 
   keyword: string = '';
-  price: object = { lower: 0, upper: 4 };
   type: string = '';
   sortByDistance: boolean = false;
   language: string = 'es';
@@ -86,7 +94,7 @@ export class NearbyPlacesSearchModalPage {
   ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public viewCtrl: ViewController) { }
+    public viewCtrl: ViewController, public alertCtrl: AlertController) { }
 
   ionViewWillEnter() {
     // Sort types alphabetically
@@ -100,7 +108,13 @@ export class NearbyPlacesSearchModalPage {
   }
 
   applyFilters() {
-    let filters = { keyword: this.keyword, price: this.price, type: this.type, 
+    // To sort by distance, it's necessary to specify keyword or type
+    if (this.sortByDistance && !(this.keyword || this.type)) {
+      Utils.showErrorAlert(this.alertCtrl,
+        'Para ordenar por distancia es necesario especificar al menos keyword o tipo');
+      return;
+    }
+    let filters = { keyword: this.keyword, type: this.type, 
       sortByDistance: this.sortByDistance, language: this.language, openNow: this.openNow };
     this.viewCtrl.dismiss(filters);
   }
@@ -111,7 +125,6 @@ export class NearbyPlacesSearchModalPage {
 
   resetFilters() {
     this.keyword = '';
-    this.price = { lower: 0, upper: 4 };
     this.type = '';
     this.sortByDistance = false;
     this.language = 'es';

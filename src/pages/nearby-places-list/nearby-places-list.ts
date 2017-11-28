@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
+import { AlertController, Loading, LoadingController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { PlacesDataProvider } from '../../providers/places-data/places-data';
+import { FiltersData } from '../nearby-places-search-modal/nearby-places-search-modal';
 import { Utils } from './../../utils/utils';
 
 @IonicPage()
@@ -16,11 +17,14 @@ export class NearbyPlacesListPage {
   lat: number;
   lng: number;
 
+  filters: FiltersData;
+
   nextPageToken: string;
   places: object[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private geolocation: Geolocation, private alertCtrl: AlertController, 
+  loading: Loading;
+
+  constructor(private geolocation: Geolocation, private alertCtrl: AlertController, 
     private loadingCtrl: LoadingController, private placesProvider: PlacesDataProvider,
     public modalCtrl: ModalController) { }
 
@@ -31,24 +35,27 @@ export class NearbyPlacesListPage {
   }
 
   getUserPosition() {
+    this.loading = Utils.showLoading(this.loadingCtrl, 'Cargando lugares cercanos...');
+
     this.geolocation.getCurrentPosition()
     .then(data => {
-      loading.dismiss();
       this.lat = data.coords.latitude;
       this.lng = data.coords.longitude;
       this.getPlaces();
     })
     .catch(err => {
-      loading.dismiss();
+      this.loading.dismiss();
       Utils.showErrorAlert(this.alertCtrl, 'Error al obtener la ubicación del usuario: ' + err);
     });
-    
-    let loading = Utils.showLoading(this.loadingCtrl, 'Cargando ubicación...');
   }
 
   getPlaces() {
-    this.placesProvider.getNearbyPlaces(this.lat, this.lng)
+    if (this.filters) {
+      this.loading = Utils.showLoading(this.loadingCtrl, 'Aplicando filtros...');
+    }
+    this.placesProvider.getNearbyPlaces(this.lat, this.lng, this.filters)
     .subscribe(data => {
+      this.loading.dismiss();
       this.nextPageToken = data.next_page_token;
       this.places = data.results;
     });
@@ -57,7 +64,7 @@ export class NearbyPlacesListPage {
   loadMorePlaces(infiniteScroll) {
     // Load more places when there are more available
     if (this.nextPageToken) {
-      this.placesProvider.getNearbyPlaces(this.lat, this.lng, this.nextPageToken)
+      this.placesProvider.getNearbyPlaces(this.lat, this.lng, this.filters, this.nextPageToken)
       .subscribe(data => {
         this.nextPageToken = data.next_page_token;
         data.results.forEach(place => this.places.push(place));
@@ -73,7 +80,8 @@ export class NearbyPlacesListPage {
     
     modal.onDidDismiss(data => {
       if (data) {
-        
+        this.filters = data;
+        this.getPlaces();
       }
     });
     

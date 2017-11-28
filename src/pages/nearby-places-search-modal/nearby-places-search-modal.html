@@ -31,20 +31,6 @@
 
   <ion-list>
     <ion-list-header>
-      Rango de precios
-      <ion-badge item-end color="dark">{{ price.lower }}</ion-badge>
-      <ion-badge item-end color="dark">{{ price.upper }}</ion-badge>
-    </ion-list-header>
-    <ion-item>
-      <ion-range min="0" max="4" pin="true" snaps="true" dualKnobs="true" [(ngModel)]="price">
-        <ion-icon range-left small name="logo-euro"></ion-icon>
-        <ion-icon range-right name="logo-euro"></ion-icon>
-      </ion-range>
-    </ion-item>
-  </ion-list>
-
-  <ion-list>
-    <ion-list-header>
       Tipo de lugar
     </ion-list-header>
     <ion-item>
