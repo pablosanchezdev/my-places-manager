@@ -19,6 +19,7 @@ export class PlaceCardComponent implements OnInit {
     if (this.place.photos) {
       this.imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?photoreference='
       + this.place.photos[0].photo_reference
+      + '&maxheight=200'
       + '&key=' + Utils.apiKey;
     } else {
       this.imageUrl = 'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg';
