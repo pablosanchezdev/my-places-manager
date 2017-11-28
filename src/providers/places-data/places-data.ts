@@ -47,4 +47,15 @@ export class PlacesDataProvider {
 
     return this.http.get<PlacesResponse>(request);
   }
+
+  performTextSearch(textSearch: string, token?: string) {
+    let request = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='
+      + textSearch;
+
+    if (token) {
+      request += '&pagetoken=' + token;
+    }
+
+    return this.http.get<PlacesResponse>(request);
+  }
 }

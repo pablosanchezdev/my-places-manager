@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
+import { PlacesDataProvider } from '../../providers/places-data/places-data';
 
 @IonicPage()
 @Component({
@@ -8,13 +9,36 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SearchPlacesListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) { }
+  textSearch: string;
+
+  nextPageToken: string;
+  places: object[];
+
+  constructor(public provider: PlacesDataProvider) { }
 
   onInput(input: string) {
     if (input) {
-      console.log(input);
+      this.textSearch = input;
+      this.provider.performTextSearch(encodeURIComponent(input))
+      .subscribe(data => {
+        this.nextPageToken = data.next_page_token;
+        this.places = data.results;
+      });
     } else {
-      console.log('vacio');
+      this.places = [];
+    }
+  }
+
+  loadMorePlaces(infiniteScroll) {
+    if (this.nextPageToken) {
+      this.provider.performTextSearch(this.textSearch, this.nextPageToken)
+      .subscribe(data => {
+        this.nextPageToken = data.next_page_token;
+        data.results.forEach(place => this.places.push(place));
+        infiniteScroll.complete();
+      });
+    } else {
+      infiniteScroll.complete();
     }
   }
 }

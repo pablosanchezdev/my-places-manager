@@ -4,17 +4,25 @@
     <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-buttons end>
-      <button ion-button icon-only>
-        <ion-icon name="funnel"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>Buscar sitios</ion-title>
+    <ion-title>Buscar lugares</ion-title>
   </ion-navbar>
 
 </ion-header>
 
+
 <ion-content>
-  <ion-searchbar (ionInput)="onInput($event.target.value)"></ion-searchbar>
-  <place-card></place-card>
+
+  <ion-searchbar (ionInput)="onInput($event.target.value)" placeholder="Restaurantes en Salamanca"></ion-searchbar>
+
+  <div class="center-vertical" *ngIf="places?.length === 0">
+    <h3>Búsqueda sin resultados</h3>
+    <ion-icon name="remove-circle"></ion-icon>
+  </div>
+
+  <place-card *ngFor="let place of places" [place]="place"></place-card>
+
+  <ion-infinite-scroll (ionInfinite)="loadMorePlaces($event)">
+    <ion-infinite-scroll-content loadingText="Cargando lugares..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  
 </ion-content>
