@@ -4,15 +4,17 @@
     <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Buscar lugares</ion-title>
+    <ion-title>Sitios cercanos</ion-title>
   </ion-navbar>
+
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="onInput($event.target.value)" placeholder="Restaurantes en Salamanca"></ion-searchbar>
+  </ion-toolbar>
 
 </ion-header>
 
 
 <ion-content>
-
-  <ion-searchbar (ionInput)="onInput($event.target.value)" placeholder="Restaurantes en Salamanca"></ion-searchbar>
 
   <div class="center-vertical" *ngIf="places?.length === 0">
     <h3>Búsqueda sin resultados</h3>
