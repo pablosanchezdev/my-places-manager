@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Nombre sitio</ion-title>
+    <ion-title *ngIf="name">{{ name }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,18 +9,9 @@
 
 <ion-content>
 
-  <ion-slides autoplay="2000" effect="flip" pager="true" speed="1500">
-    <ion-slide>
-      <img src="http://nuso.org/media/thumbs/articles/images/1uf4GZatYjqs.jpg">
-    </ion-slide>
-    <ion-slide>
-      <img src="https://www.ecestaticos.com/imagestatic/clipping/a0a/d98/a0ad98dc552223bc3e12e4f0c5cb91d9/por-que-es-mejor-que-viajemos-en-tren-en-lugar-de-en-avion.jpg?mtime=1500895657">
-    </ion-slide>
-    <ion-slide>
-      <img src="https://cdni.rt.com/actualidad/public_images/2016.01/article/56a3047ac4618834388b45be.jpg">
-    </ion-slide>
-    <ion-slide>
-      <img src="https://smoda.elpais.com/wp-content/uploads/2016/02/cuba2-635x423.jpg">
+  <ion-slides effect="cube" pager="true">
+    <ion-slide *ngFor="let url of imageUrls">
+      <img [src]="url" alt="Imagen del lugar">
     </ion-slide>
   </ion-slides>
   

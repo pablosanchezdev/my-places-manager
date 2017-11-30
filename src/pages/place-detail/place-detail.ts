@@ -57,6 +57,9 @@ export class PlaceDetailPage {
   }
 
   onImageClicked() {
-    this.navCtrl.push('PlacePhotosPage');
+    this.navCtrl.push('PlacePhotosPage', {
+      name: this.place.name,
+      photoRefs: this.place.photos
+    });
   }
 }
