@@ -45,7 +45,7 @@ export class NearbyPlacesListPage {
     })
     .catch(err => {
       this.loading.dismiss();
-      Utils.showErrorAlert(this.alertCtrl, 'Error al obtener la ubicación del usuario: ' + err);
+      Utils.showErrorAlert(this.alertCtrl, 'Error al obtener la ubicación del usuario: ' + err.message);
     });
   }
 

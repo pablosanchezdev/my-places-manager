@@ -1,5 +1,4 @@
-import { AlertController, LoadingController } from 'ionic-angular';
-import { Loading } from 'ionic-angular/components/loading/loading';
+import { AlertController, Loading, LoadingController } from 'ionic-angular';
 
 export class Utils {
 
