@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FiltersData } from '../../pages/nearby-places-search-modal/nearby-places-search-modal';
+import { Place } from '../../interfaces/place';
 
 interface PlacesResponse {
   next_page_token: string,
-  results: object[]
+  results: Place[]
 }
 
 @Injectable()

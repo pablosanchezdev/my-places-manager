@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, Loading, LoadingController } from 'ionic-angular';
 import { PlacesDataProvider } from '../../providers/places-data/places-data';
 import { Utils } from '../../utils/utils';
+import { Place } from '../../interfaces/place';
 
 @IonicPage()
 @Component({
@@ -13,7 +14,7 @@ export class SearchPlacesListPage {
   textSearch: string;
 
   nextPageToken: string;
-  places: object[];
+  places: Place[];
 
   constructor(private provider: PlacesDataProvider, private loadingCtrl: LoadingController) { }
 

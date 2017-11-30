@@ -6,6 +6,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { PlacesDataProvider } from '../../providers/places-data/places-data';
 import { FiltersData } from '../nearby-places-search-modal/nearby-places-search-modal';
 import { Utils } from './../../utils/utils';
+import { Place } from '../../interfaces/place';
 
 @IonicPage()
 @Component({
@@ -20,7 +21,7 @@ export class NearbyPlacesListPage {
   filters: FiltersData;
 
   nextPageToken: string;
-  places: object[];
+  places: Place[];
 
   loading: Loading;
 

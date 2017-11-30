@@ -6,6 +6,7 @@ import { GoogleMaps, GoogleMap, GoogleMapsEvent, MarkerCluster,
 import { Geolocation } from '@ionic-native/geolocation';
 import { PlacesDataProvider } from '../../providers/places-data/places-data';
 import { Utils } from './../../utils/utils';
+import { Place } from '../../interfaces/place';
 
 interface Position {
   lat: number,
@@ -24,7 +25,7 @@ export class PlacesMapPage {
   map: GoogleMap;
   markerCluster: MarkerCluster;
 
-  places: object[] = [];
+  places: Place[] = [];
 
   loading: Loading;
 
@@ -127,13 +128,13 @@ export class PlacesMapPage {
 
     for (let place of this.places) {
       markers.push({
-        place_id: place['place_id'], // Necessary to load place details
-        title: place['name'],
+        place_id: place.place_id, // Necessary to load place details
+        title: place.name,
         icon: 'blue',
         animation: 'DROP',
         position: {
-          lat: place['geometry']['location']['lat'],
-          lng: place['geometry']['location']['lng']
+          lat: place.geometry.location.lat,
+          lng: place.geometry.location.lng
         }
       });
     }
