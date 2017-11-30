@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, AlertController, Events, Platform,
-  Loading, LoadingController } from 'ionic-angular';
+  Loading, LoadingController, NavController } from 'ionic-angular';
 import { GoogleMaps, GoogleMap, GoogleMapsEvent, MarkerCluster,
   MarkerOptions, Marker } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -36,7 +36,7 @@ export class PlacesMapPage {
   constructor (private platform: Platform, private googleMaps: GoogleMaps,
     private loadingCtrl: LoadingController, private geolocation: Geolocation,
     private alertCtrl: AlertController, private placesProvider: PlacesDataProvider,
-    private events: Events) { 
+    private events: Events, private navCtrl: NavController) { 
       this.events.subscribe(this.loadMorePlaces, (input, token) => {
         this.loadPlaces(input, token);
       });
@@ -163,7 +163,9 @@ export class PlacesMapPage {
     });
   }
 
-  getPlaceDetails(placeId: string) {
-
+  getPlaceDetails(id: string) {
+    this.navCtrl.push('PlaceDetailPage', {
+      placeId: id
+    });
   }
 }

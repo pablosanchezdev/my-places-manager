@@ -21,7 +21,7 @@
       </ion-card-title>
 
       <p *ngIf="place" id="types">
-        <strong>Tipos:</strong> {{ place.types }}
+        <strong>Tipos:</strong> {{ place.types.join(', ') }}
       </p>
 
       <ion-item *ngIf="place" no-padding>
@@ -33,7 +33,7 @@
       <ion-item *ngIf="place" no-padding>
         <ion-icon name="call" item-start color="secondary"></ion-icon>
         Teléfono
-        <span item-end>{{ place.international_phone_number }}</span>
+        <a item-end (click)="launchDialer(place.international_phone_number)">{{ place.international_phone_number }}</a>
       </ion-item>
 
       <ion-item *ngIf="place" no-padding>

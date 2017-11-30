@@ -10,6 +10,7 @@ import { PlacesDataProvider } from '../providers/places-data/places-data';
 import { KeyInterceptor } from '../interceptors/key-interceptor';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps } from '@ionic-native/google-maps';
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Geolocation,
     GoogleMaps,
+    CallNumber,
     PlacesDataProvider,
     { provide: HTTP_INTERCEPTORS, useClass: KeyInterceptor, multi: true },
   ],

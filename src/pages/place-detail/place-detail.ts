@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading,
+  LoadingController, AlertController } from 'ionic-angular';
 import { PlacesDataProvider } from '../../providers/places-data/places-data';
+import { CallNumber } from '@ionic-native/call-number';
 import { Place } from '../../interfaces/place';
 import { Utils } from '../../utils/utils';
 
@@ -16,7 +18,8 @@ export class PlaceDetailPage {
 
   constructor(private navCtrl: NavController,
     private navParams: NavParams, private loadingCtrl: LoadingController,
-    private placesProvider: PlacesDataProvider) { }
+    private placesProvider: PlacesDataProvider,
+    private callNumber: CallNumber, private alertCtrl: AlertController) { }
 
   ionViewWillEnter() {
     let placeId = this.navParams.get('placeId');
@@ -42,6 +45,11 @@ export class PlaceDetailPage {
     } else {
       this.imageUrl = 'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg';
     }
+  }
+
+  launchDialer(phone: string) {
+    this.callNumber.callNumber(phone, true)
+    .catch(() => Utils.showErrorAlert(this.alertCtrl, 'Error al llamar'));
   }
 
   onLinkClicked(url: string) {

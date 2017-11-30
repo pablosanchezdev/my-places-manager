@@ -88,4 +88,5 @@
     </plugin>
     <allow-navigation href="http://192.168.1.170:8100" />
     <allow-navigation href="http://192.168.1.170:8101" />
+    <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
 </widget>
