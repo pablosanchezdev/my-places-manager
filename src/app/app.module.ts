@@ -9,6 +9,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PlacesDataProvider } from '../providers/places-data/places-data';
 import { KeyInterceptor } from '../interceptors/key-interceptor';
 import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Geolocation,
+    GoogleMaps,
     PlacesDataProvider,
     { provide: HTTP_INTERCEPTORS, useClass: KeyInterceptor, multi: true },
   ],

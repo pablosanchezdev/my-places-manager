@@ -17,7 +17,7 @@ export class PlacesTabsPage {
   tabs: TabInterface[] = [
     { root: 'NearbyPlacesListPage', title: 'Listado', icon: 'compass' },
     { root: 'SearchPlacesListPage', title: 'Buscar', icon: 'search' },
-    { root: 'NearbyPlacesMapPage', title: 'Mapa', icon: 'map' }
+    { root: 'PlacesMapPage', title: 'Mapa', icon: 'map' }
   ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) { }

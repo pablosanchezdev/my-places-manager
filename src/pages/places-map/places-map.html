@@ -9,6 +9,11 @@
 
 </ion-header>
 
+
 <ion-content>
-  <div id="map" #map></div>
+
+  <div id="map" #map>
+    <ion-searchbar debounce="1200" (ionInput)="onInput($event.target.value)"></ion-searchbar>
+  </div>
+
 </ion-content>
