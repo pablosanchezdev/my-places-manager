@@ -6,5 +6,8 @@ export interface Place {
       lat: number,
       lng: number
     }
-  }
+  },
+  photos: [
+    { photo_reference: string }
+  ]
 }

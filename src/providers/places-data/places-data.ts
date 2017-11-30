@@ -8,6 +8,10 @@ interface PlacesResponse {
   results: Place[]
 }
 
+interface PlaceDetailsResponse {
+  result: Place;
+}
+
 @Injectable()
 export class PlacesDataProvider {
 
@@ -58,5 +62,11 @@ export class PlacesDataProvider {
     }
 
     return this.http.get<PlacesResponse>(request);
+  }
+
+  getPlaceDetails(id: string) {
+    return this.http.get<PlaceDetailsResponse>(
+      'https://maps.googleapis.com/maps/api/place/details/json?placeid='+id
+    );
   }
 }

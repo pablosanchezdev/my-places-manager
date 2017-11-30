@@ -26,7 +26,9 @@ export class PlaceCardComponent implements OnInit {
     }
   }
 
-  goToDetail() {
-    this.navCtrl.push('PlaceDetailPage');
+  onPlaceClicked(id: string) {
+    this.navCtrl.push('PlaceDetailPage', {
+      placeId: id
+    });
   }
 }
