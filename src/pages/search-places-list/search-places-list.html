@@ -8,7 +8,7 @@
   </ion-navbar>
 
   <ion-toolbar>
-    <ion-searchbar (ionInput)="onInput($event.target.value)" placeholder="Restaurantes en Salamanca"></ion-searchbar>
+    <ion-searchbar debounce="1000" (ionInput)="onInput($event.target.value)" placeholder="Restaurantes en Salamanca"></ion-searchbar>
   </ion-toolbar>
 
 </ion-header>
