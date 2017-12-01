@@ -22,3 +22,11 @@
   align-items: center;
   flex-direction: column;
 }
+
+.invalid {
+  border-bottom: 1px solid #ff6153;
+}
+
+.error {
+  border-bottom: 0 !important;
+}

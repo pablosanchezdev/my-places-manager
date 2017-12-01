@@ -19,7 +19,6 @@ import { Utils } from '../../utils/utils';
 export class RegisterPage {
 
   registerForm: FormGroup;
-  loading: Loading;
 
   passwordMinLength: number = 6;
   bioMaxLength: number = 60;
@@ -45,17 +44,17 @@ export class RegisterPage {
   signupUser() {
     this.authData.signupUser(this.registerForm.value.email, this.registerForm.value.password)
     .then(authData => {
-      this.loading.dismiss()
+      loading.dismiss()
       .then(() => {
         this.navCtrl.setRoot('MenuPage');
       });
     }, error => {
-      this.loading.dismiss()
+      loading.dismiss()
       .then(() => {
         Utils.showErrorAlert(this.alertCtrl, error.message);
-      })
+      });
     });
 
-    this.loading = Utils.showLoading(this.loadingCtrl, 'Registrando usuario...');
+    let loading: Loading = Utils.showLoading(this.loadingCtrl, 'Registrando usuario...');
   }
 }
