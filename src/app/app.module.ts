@@ -11,6 +11,19 @@ import { KeyInterceptor } from '../interceptors/key-interceptor';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { CallNumber } from '@ionic-native/call-number';
+import { AuthProvider } from '../providers/auth/auth';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyDZ-iX0pxubpRsNHYg4ezx0K86L5rcsEqs',
+  authDomain: 'my-places-manager.firebaseapp.com',
+  databaseURL: 'https://my-places-manager.firebaseio.com',
+  projectId: 'my-places-manager',
+  storageBucket: 'my-places-manager.appspot.com',
+  messagingSenderId: '969776854062'
+};
 
 @NgModule({
   declarations: [
@@ -19,6 +32,9 @@ import { CallNumber } from '@ionic-native/call-number';
   imports: [
     BrowserModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -34,6 +50,8 @@ import { CallNumber } from '@ionic-native/call-number';
     CallNumber,
     PlacesDataProvider,
     { provide: HTTP_INTERCEPTORS, useClass: KeyInterceptor, multi: true },
+    AuthProvider,
+    AngularFireDatabase
   ],
 })
 export class AppModule {}

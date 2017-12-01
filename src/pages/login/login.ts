@@ -39,10 +39,7 @@ export class LoginPage {
   loginUser() {
     this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password)
     .then(authData => {
-      loading.dismiss()
-      .then(() => {
-        this.navCtrl.setRoot('MenuPage');
-      })
+      loading.dismiss();
     }, error => {
       loading.dismiss()
       .then(() => {

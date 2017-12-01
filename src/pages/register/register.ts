@@ -8,6 +8,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthProvider } from '../../providers/auth/auth';
+import { UserDataProvider } from '../../providers/user-data/user-data';
 import { EmailValidator } from '../../validators/email';
 import { Utils } from '../../utils/utils';
 
@@ -24,8 +25,8 @@ export class RegisterPage {
   bioMaxLength: number = 60;
 
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder,
-    public authData: AuthProvider, public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController) {
+    public authData: AuthProvider, public userData: UserDataProvider,
+    public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     this.initRegisterForm();
   }
 
@@ -46,7 +47,8 @@ export class RegisterPage {
     .then(authData => {
       loading.dismiss()
       .then(() => {
-        this.navCtrl.setRoot('MenuPage');
+        this.userData.createUser(authData.uid, authData.email,
+          this.registerForm.value.bio, this.registerForm.value.username);
       });
     }, error => {
       loading.dismiss()
