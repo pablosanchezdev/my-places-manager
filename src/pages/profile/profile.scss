@@ -6,7 +6,7 @@ page-profile {
     height: 25%;
     min-height: 100px;
     position: relative;
-    background: #386fe6;
+    background: #00bfff;
   }
 
   #image {
@@ -18,33 +18,9 @@ page-profile {
     height: 120px;
   }
 
-  #username {
-    margin-top: 80px;
-    font-weight: bold;
-    font-size: 20px;
-  }
-
-  #bio {
-    margin: $margin 3*$margin;
-    position: relative;
-    text-align: justify;
-    font-size: 15px;
-  }
-
-  #start-quote {
-    position: absolute;
-    top: 0;
-    left: -20px;
-  }
-
-  #end-quote {
-    position: absolute;
-    bottom: 0;
-    right: -20px;
-  }
-
-  #lists {
-    margin-top: 45px;
-    font-size: 22px;
+  #user-info {
+    margin-top: 90px;
+    margin-left: $margin;
+    margin-right: $margin;
   }
 }

@@ -12,23 +12,36 @@
 
 <ion-content>
 
+  <ion-fab top right edge>
+    <button ion-fab><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list>
+      <button ion-fab (click)="launchCamera()"><ion-icon name="camera"></ion-icon></button>
+      <button ion-fab (click)="launchGallery()"><ion-icon name="images"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+
   <div id="background">
-    <img id="image" src="http://placehold.it/120x120" alt="Imagen del usuario">
+    <img id="image" [src]="(user|async)?.profile_image" alt="Imagen del usuario">
   </div>
 
-  <p id="username" text-center>@username</p>
-
-  <div id="bio">
-    <p>Cita textual de usuario que no sabe que decir y esto es una prueba</p>
-    <ion-icon id="start-quote" name="quote"></ion-icon>
-    <ion-icon id="end-quote" name="quote"></ion-icon>
-  </div>
+  <ion-list id="user-info">
+    <ion-item>
+      <ion-icon name="at" item-start></ion-icon>
+      {{ (user|async)?.username }}
+    </ion-item>
+    <ion-item>
+      <ion-icon name="mail-open" item-start></ion-icon>
+      {{ (user|async)?.email }}
+    </ion-item>
+    <ion-item>
+      <ion-icon name="information-circle" item-start></ion-icon>
+      {{ (user|async)?.bio }}
+    </ion-item>
+  </ion-list>
   
-  <div id="lists" text-center>
-    <p *ngIf="true">No tienes listas creadas aún</p>
-    <p *ngIf="false">Tienes 4 listas</p>
-    <button ion-button text-uppercase icon-right disabled>
-      Ir a listas
+  <div text-center>
+    <button ion-button icon-right (click)="goToLists()">
+      VER MIS LISTAS
       <ion-icon name="albums"></ion-icon>
     </button>
   </div>
@@ -40,8 +53,9 @@
 
   <ion-toolbar>
     <div text-center>
-      <button ion-button round outline text-uppercase (click)="logoutUser()">
-        Log out
+      <button ion-button round outline icon-left (click)="logoutUser()">
+        <ion-icon name="log-out"></ion-icon>
+        LOG OUT
       </button>
     </div>
   </ion-toolbar>

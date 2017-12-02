@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
 import { AuthProvider } from '../../providers/auth/auth';
+import { UserDataProvider } from '../../providers/user-data/user-data';
 
 @IonicPage()
 @Component({
@@ -9,7 +11,26 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class ProfilePage {
 
-  constructor(public authData: AuthProvider) { }
+  user: Observable<any>;
+
+  constructor(public navCtrl: NavController, public authData: AuthProvider,
+    public userData: UserDataProvider) { }
+
+  ionViewDidLoad() {
+    this.user = this.userData.getUserData();
+  }
+
+  launchCamera() {
+
+  }
+
+  launchGallery() {
+    
+  }
+
+  goToLists() {
+    this.navCtrl.setRoot('MyListsPage');
+  }
 
   logoutUser() {
     this.authData.logoutUser();
