@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import firebase from 'firebase';
@@ -9,12 +9,18 @@ import { AuthProvider } from '../auth/auth';
 export class UserDataProvider {
 
   uid: string;
+  userRef: AngularFireObject<any>;
+  userListsRef: AngularFireList<any>;
+  listsRef: AngularFireList<any>;
 
   constructor(public db: AngularFireDatabase, public authData: AuthProvider,
     public http: HttpClient ) {
     this.authData.getUid()
     .subscribe(data => {
       this.uid = data.uid;
+      this.userRef = db.object(`users/${this.uid}`);
+      this.userListsRef = db.list(`user-lists/${this.uid}`);
+      this.listsRef = db.list('lists');
     });
    }
 
@@ -23,7 +29,7 @@ export class UserDataProvider {
     this.getUserInitialAvatar(username)
     .subscribe(avatar => {
       this.uploadImage(avatar).then(url => {
-        var updates = {};
+        let updates = {};
 
         updates[`/users/${uid}`] = {
           email: email,
@@ -54,7 +60,7 @@ export class UserDataProvider {
   }
 
   createList(name: string, description: string) {
-    this.db.list(`/user-lists/${this.uid}`).push({
+    this.userListsRef.push({
       name: name,
       description: description,
       numItems: 0
@@ -62,15 +68,31 @@ export class UserDataProvider {
   }
 
   deleteList(listId: string) {
-    this.db.list(`user-lists/${this.uid}`).remove(listId);
+    this.userListsRef.remove(listId);
+    this.listsRef.remove(listId);
+  }
+
+  addPlaceToList(listId: string, placeId: string, name: string,
+    address: string, photoUrl: string): Promise<any> {
+    return this.db.object(`lists/${listId}/${placeId}`).set({
+      name: name,
+      address: address,
+      photoUrl: photoUrl
+    })
+    .then(() => {
+      const listRef = this.db.database.ref(`user-lists/${this.uid}/${listId}`);
+      return listRef.once('value', snap => {
+        return listRef.update({ numItems: ++snap.val().numItems });
+      });
+    });
   }
 
   getUserLists(): Observable<any> {
-    return this.db.list(`user-lists/${this.uid}`).snapshotChanges();
+    return this.userListsRef.snapshotChanges();
   }
 
   getUserData(): Observable<any> {
-    return this.db.object(`users/${this.uid}`).valueChanges();
+    return this.userRef.valueChanges();
   }
 
   uploadImage(data?: Blob, base64Data?: string): Promise<string> {

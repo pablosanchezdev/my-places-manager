@@ -1,4 +1,4 @@
-page-place-detail {
+.page-place-detail {
 
   #address {
     display: block;
@@ -9,6 +9,10 @@ page-place-detail {
 
   #types {
     font-size: 1.7rem;
+  }
+
+  button {
+    margin-top: 20px;
   }
 }
 

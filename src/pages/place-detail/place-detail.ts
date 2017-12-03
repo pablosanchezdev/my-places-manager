@@ -5,6 +5,7 @@ import { PlacesDataProvider } from '../../providers/places-data/places-data';
 import { CallNumber } from '@ionic-native/call-number';
 import { Place } from '../../interfaces/place';
 import { Utils } from '../../utils/utils';
+import { UserDataProvider } from '../../providers/user-data/user-data';
 
 @IonicPage()
 @Component({
@@ -16,12 +17,12 @@ export class PlaceDetailPage {
   place: Place;
   imageUrl: string;
 
-  constructor(private navCtrl: NavController,
-    private navParams: NavParams, private loadingCtrl: LoadingController,
-    private placesProvider: PlacesDataProvider,
-    private callNumber: CallNumber, private alertCtrl: AlertController) { }
+  constructor(private navCtrl: NavController, private navParams: NavParams,
+    private loadingCtrl: LoadingController, private placesProvider: PlacesDataProvider,
+    private callNumber: CallNumber, private alertCtrl: AlertController,
+    private userData: UserDataProvider) { }
 
-  ionViewWillEnter() {
+  ionViewDidLoad() {
     let placeId = this.navParams.get('placeId');
     this.getPlaceInfo(placeId);
   }
@@ -47,6 +48,13 @@ export class PlaceDetailPage {
     }
   }
 
+  onImageClicked() {
+    this.navCtrl.push('PlacePhotosPage', {
+      name: this.place.name,
+      photoRefs: this.place.photos
+    });
+  }
+
   launchDialer(phone: string) {
     this.callNumber.callNumber(phone, true)
     .catch(() => Utils.showErrorAlert(this.alertCtrl, 'Error al llamar'));
@@ -56,10 +64,33 @@ export class PlaceDetailPage {
     window.open(url, '_system');
   }
 
-  onImageClicked() {
-    this.navCtrl.push('PlacePhotosPage', {
-      name: this.place.name,
-      photoRefs: this.place.photos
+  savePlace(id: string, name: string, address: string, imageUrl: string) {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Lista');
+
+    this.userData.getUserLists().subscribe(lists => {
+      if (alert != null) {
+        lists.forEach(list => {
+          alert.addInput({
+            type: 'radio',
+            label: list['payload'].val().name,
+            value: list['payload']['key']
+          });
+        });
+        alert.present();
+      }
+    });
+    
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'Ok',
+      handler: data => {
+        alert = null;
+        this.userData.addPlaceToList(data, id, name, address, imageUrl)
+        .then(() => {
+          Utils.showErrorAlert(this.alertCtrl, 'Añadido correctamente');
+        });
+      }
     });
   }
 }

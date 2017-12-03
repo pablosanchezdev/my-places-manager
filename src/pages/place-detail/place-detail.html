@@ -7,7 +7,7 @@
 </ion-header>
   
 
-<ion-content>
+<ion-content class="page-place-detail">
     
   <ion-card>
       
@@ -33,7 +33,9 @@
       <ion-item *ngIf="place" no-padding>
         <ion-icon name="call" item-start color="secondary"></ion-icon>
         Teléfono
-        <a item-end (click)="launchDialer(place.international_phone_number)">{{ place.international_phone_number }}</a>
+        <a item-end (click)="launchDialer(place.international_phone_number)">
+          {{ place.international_phone_number }}
+        </a>
       </ion-item>
 
       <ion-item *ngIf="place" no-padding>
@@ -47,6 +49,14 @@
         <a item-end (click)="onLinkClicked(place.website)">{{ place.website }}</a>
       </ion-item>
       
+      <div text-center>
+        <button ion-button icon-left outline
+          (click)="savePlace(place.place_id, place.name, place.formatted_address, imageUrl)">
+          <ion-icon name="archive"></ion-icon>
+          AÑADIR A LISTA
+        </button>
+      </div>
+
     </ion-card-content>
 
   </ion-card>
