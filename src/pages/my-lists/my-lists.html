@@ -15,21 +15,21 @@
 
 <ion-content padding>
   
-  <div class="center-vertical" *ngIf="lists?.length === 0">
+  <div class="center-vertical" *ngIf="(lists|async)?.length === 0">
     <h3>No tienes listas aún</h3>
     <ion-icon name="albums"></ion-icon>
     <h3>¡Crea una!</h3>
   </div>
 
   <ion-list>
-    <ion-item-sliding #slidingItem *ngFor="let list of lists">
-      <ion-item>
-        <h2>{{ list.name }}</h2>
-        <p>{{ list.description }}</p>
-        <ion-badge item-end>{{ list.numItems }} items</ion-badge>
+    <ion-item-sliding #slidingItem *ngFor="let list of lists | async">
+      <ion-item (click)="onListClicked(list.payload.key)">
+        <h2>{{ list.payload.val().name }}</h2>
+        <p>{{ list.payload.val().description }}</p>
+        <ion-badge item-end>{{ list.payload.val().numItems }} items</ion-badge>
       </ion-item>
-      <ion-item-options side="right" (ionSwipe)="delete(slidingItem, list)">
-        <button ion-button icon-only color="danger" (click)="delete(slidingItem, list)">
+      <ion-item-options side="right" (ionSwipe)="delete(slidingItem, list.payload.key)">
+        <button ion-button icon-only color="danger" (click)="delete(slidingItem, list.payload.key)">
           <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>

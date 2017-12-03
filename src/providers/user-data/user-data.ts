@@ -54,12 +54,19 @@ export class UserDataProvider {
   }
 
   createList(name: string, description: string) {
-    let listId = this.db.database.ref(`/user-lists/${this.uid}`).push().key;
-    this.db.object(`/user-lists/${this.uid}/${listId}`).set({
+    this.db.list(`/user-lists/${this.uid}`).push({
       name: name,
       description: description,
       numItems: 0
     });
+  }
+
+  deleteList(listId: string) {
+    this.db.list(`user-lists/${this.uid}`).remove(listId);
+  }
+
+  getUserLists(): Observable<any> {
+    return this.db.list(`user-lists/${this.uid}`).snapshotChanges();
   }
 
   getUserData(): Observable<any> {

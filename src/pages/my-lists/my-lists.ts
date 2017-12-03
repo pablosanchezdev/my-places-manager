@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
-import { ItemSliding } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, ItemSliding } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
+import { UserDataProvider } from '../../providers/user-data/user-data';
 
 @IonicPage()
 @Component({
@@ -10,23 +10,22 @@ import { ItemSliding } from 'ionic-angular';
 })
 export class MyListsPage {
 
-  lists: object[];
+  lists: Observable<any[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public alertCtrl: AlertController) { }
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController,
+    public userData: UserDataProvider) { }
 
   ionViewDidLoad() {
-    this.lists = [
-      { name: 'Lista 1', description: 'Descripcion lista 1', numItems: 5 },
-      { name: 'Lista 2', description: 'Descripcion lista 2', numItems: 1 },
-      { name: 'Lista 3', description: 'Descripcion lista 3', numItems: 8 },
-      { name: 'Lista 4', description: 'Descripcion lista 4', numItems: 13 }
-    ];
+    this.lists = this.userData.getUserLists();
   }
 
-  delete(slidingItem: ItemSliding, list) {
+  onListClicked(listId: string) {
+    this.navCtrl.setRoot('ListDetailPage', { id: listId });
+  }
+
+  delete(slidingItem: ItemSliding, listId: string) {
     slidingItem.close();
-    this.lists.splice(this.lists.indexOf(list), 1);
+    this.userData.deleteList(listId);
   }
 
   addList() {
@@ -34,14 +33,8 @@ export class MyListsPage {
       title: 'Añadir lista',
       message: 'Introduce nombre y descripción de la nueva lista',
       inputs: [
-        {
-          name: 'name',
-          placeholder: 'Nombre'
-        },
-        {
-          name: 'description',
-          placeholder: 'Descripción'
-        }
+        { name: 'name', placeholder: 'Nombre' },
+        { name: 'description', placeholder: 'Descripción' }
       ],
       buttons: [
         { text: 'Cancel' },
@@ -49,7 +42,7 @@ export class MyListsPage {
           text: 'Añadir',
           handler: data => {
             if (this.isValid(data.name, data.description)) {
-
+              this.userData.createList(data.name, data.description);
             } else {
               return false;
             }
