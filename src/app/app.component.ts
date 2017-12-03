@@ -1,31 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements OnInit, OnDestroy {
 
   rootPage: string;
+  authObserver: Subscription;
 
-  constructor(platform: Platform, statusBar: StatusBar,
-    splashScreen: SplashScreen, afAuth: AngularFireAuth) {
-    afAuth.authState.subscribe(user => {
+  constructor(public platform: Platform, public statusBar: StatusBar,
+    public splashScreen: SplashScreen, public afAuth: AngularFireAuth) {
+    platform.ready().then(() => {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+      statusBar.styleDefault();
+      splashScreen.hide();
+    });
+  }
+
+  ngOnInit() {
+    this.authObserver = this.afAuth.authState
+    .subscribe(user => {
       if (user) {  // User is logged in
         this.rootPage = 'MenuPage';
       } else {
         this.rootPage = 'StartPage';
       }
     });
-    
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.backgroundColorByHexString('#ff0000')
-      splashScreen.hide();
-    });
+  }
+
+  ngOnDestroy() {
+    this.authObserver.unsubscribe();
   }
 }
