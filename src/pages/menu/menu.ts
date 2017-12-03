@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, Nav, NavController, NavParams } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
+import { UserDataProvider } from '../../providers/user-data/user-data';
 
 interface PageInterface {
   title: string,
@@ -25,7 +27,14 @@ export class MenuPage {
     { title: 'Acerca de', component: 'AboutPage', icon: 'information-circle' }
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) { }
+  user: Observable<any>;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public userData: UserDataProvider) { }
+
+  ionViewDidLoad() {
+    this.user = this.userData.getUserData();
+  }
 
   openPage(page: PageInterface) {
     this.nav.setRoot(page.component);

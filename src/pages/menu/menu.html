@@ -4,10 +4,10 @@
     <ion-toolbar>
       <ion-item no-lines>
         <ion-avatar item-start>
-          <img src="https://i.pinimg.com/originals/af/25/49/af25490494d3338afef00869c59fdd37.png" alt="Imagen del usuario">
+          <img [src]="(user|async)?.profile_image" alt="Imagen del usuario">
         </ion-avatar>
-        <h2>Marty McFly</h2>
-        <p>November 5, 1955</p>
+        <h2>{{ (user|async)?.username }}</h2>
+        <p>{{ (user|async)?.email }}</p>
       </ion-item>
     </ion-toolbar>
   </ion-header>
