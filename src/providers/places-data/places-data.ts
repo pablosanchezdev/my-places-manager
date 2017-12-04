@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { FiltersData } from '../../pages/nearby-places-search-modal/nearby-places-search-modal';
 import { Place } from '../../interfaces/place';
 
@@ -67,6 +68,14 @@ export class PlacesDataProvider {
   getPlaceDetails(id: string) {
     return this.http.get<PlaceDetailsResponse>(
       'https://maps.googleapis.com/maps/api/place/details/json?placeid='+id
+    );
+  }
+
+  getPhoto(photoRef: string): Observable<Blob> {
+    return this.http.get(
+      `https://maps.googleapis.com/maps/api/place/photo?photoreference=${photoRef}
+      &maxheight=200`,
+      { responseType: 'blob' }
     );
   }
 }

@@ -17,9 +17,7 @@ export class LoginPage {
   passwordMinLength: number = 6;
 
   constructor(public formBuilder: FormBuilder, public authData: AuthProvider,
-    private utils: UtilsProvider) { }
-
-  ionViewDidLoad() {
+    private utils: UtilsProvider) {
     this.initLoginForm();
   }
 

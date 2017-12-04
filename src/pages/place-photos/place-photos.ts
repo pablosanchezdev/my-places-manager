@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams } from 'ionic-angular';
-import { UtilsProvider } from '../../providers/utils/utils';
+import { PlacesDataProvider } from '../../providers/places-data/places-data';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 interface PhotoRef {
   photo_reference: string;
@@ -14,9 +16,10 @@ interface PhotoRef {
 export class PlacePhotosPage {
 
   name: string;
-  imageUrls: string[] = [];
+  imageUrls: any[] = [];
 
-  constructor(public navParams: NavParams, private utils: UtilsProvider) { }
+  constructor(public navParams: NavParams, private placesData: PlacesDataProvider,
+    private sanitizer: DomSanitizer) { }
 
   ionViewWillEnter() {
     this.name = this.navParams.get('name');
@@ -26,10 +29,14 @@ export class PlacePhotosPage {
 
   getPhotos(photoRefs: PhotoRef[]) {
     photoRefs.forEach(photoRef => {
-      this.imageUrls.push('https://maps.googleapis.com/maps/api/place/photo?photoreference='
-      + photoRef.photo_reference
-      + '&maxheight=200'
-      + '&key=' + this.utils.apiKey);
+      this.placesData.getPhoto(photoRef.photo_reference)
+      .subscribe(data => 
+        this.imageUrls.push(this.sanitize(URL.createObjectURL(data)))
+      );
     });
+  }
+
+  sanitize(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 }

@@ -5,8 +5,6 @@ import { AlertController, Loading, LoadingController } from 'ionic-angular';
 export class UtilsProvider {
 
   constructor(private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
-
-  apiKey: string = 'AIzaSyDs1o9mW-vhqMcBocjTQkZdGi5I2EXmt5I';
   
   showAlert(msg: string, isSuccess: boolean) {
     this.alertCtrl.create({

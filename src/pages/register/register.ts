@@ -19,9 +19,7 @@ export class RegisterPage {
   bioMaxLength: number = 25;
 
   constructor(public formBuilder: FormBuilder, private authData: AuthProvider,
-    private userData: UserDataProvider, private utils: UtilsProvider) { }
-
-  ionViewDidLoad() {
+    private userData: UserDataProvider, private utils: UtilsProvider) {
     this.initRegisterForm();
   }
 

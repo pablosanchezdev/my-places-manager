@@ -3,8 +3,9 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { CallNumber } from '@ionic-native/call-number';
 import { PlacesDataProvider } from '../../providers/places-data/places-data';
 import { UserDataProvider } from '../../providers/user-data/user-data';
-import { UtilsProvider } from '../../providers/utils/utils';
 import { Place } from '../../interfaces/place';
+import { DomSanitizer } from '@angular/platform-browser';
+import { UtilsProvider } from '../../providers/utils/utils';
 
 @IonicPage()
 @Component({
@@ -14,12 +15,13 @@ import { Place } from '../../interfaces/place';
 export class PlaceDetailPage {
 
   place: Place;
-  imageUrl: string;
+  imageUrl;
 
   constructor(private navCtrl: NavController, private navParams: NavParams,
     private alertCtrl: AlertController, private placesProvider: PlacesDataProvider,
     private callNumber: CallNumber, private userData: UserDataProvider,
-    private utils: UtilsProvider) { }
+    private placesData: PlacesDataProvider, private utils: UtilsProvider,
+    private sanitizer: DomSanitizer) { }
 
   ionViewDidLoad() {
     this.getPlaceInfo(this.navParams.get('placeId'));
@@ -37,10 +39,10 @@ export class PlaceDetailPage {
 
   loadPlaceImage() {
     if (this.place.photos) {
-      this.imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?photoreference='
-      + this.place.photos[0].photo_reference
-      + '&maxheight=200'
-      + '&key=' + this.utils.apiKey;
+      this.placesData.getPhoto(this.place.photos[0].photo_reference)
+      .subscribe(data => {
+        this.imageUrl = this.sanitize(URL.createObjectURL(data));
+      });
     } else {
       this.imageUrl = 'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg';
     }
@@ -90,5 +92,9 @@ export class PlaceDetailPage {
         });
       }
     });
+  }
+
+  sanitize(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 }
