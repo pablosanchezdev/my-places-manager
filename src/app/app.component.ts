@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Subscription } from 'rxjs/Subscription';
+import { UserDataProvider } from '../providers/user-data/user-data';
 
 @Component({
   templateUrl: 'app.html'
@@ -13,7 +14,7 @@ export class MyApp implements OnInit, OnDestroy {
   rootPage: string;
   authObserver: Subscription;
 
-  constructor(public platform: Platform, public statusBar: StatusBar,
+  constructor(public platform: Platform, public statusBar: StatusBar, private userData: UserDataProvider,
     public splashScreen: SplashScreen, public afAuth: AngularFireAuth) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -27,6 +28,7 @@ export class MyApp implements OnInit, OnDestroy {
     this.authObserver = this.afAuth.authState
     .subscribe(user => {
       if (user) {  // User is logged in
+        this.userData.setUid(user.uid);
         this.rootPage = 'MenuPage';
       } else {
         this.rootPage = 'StartPage';

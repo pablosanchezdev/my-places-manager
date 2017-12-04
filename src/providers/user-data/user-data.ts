@@ -3,7 +3,6 @@ import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angular
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import firebase from 'firebase';
-import { AuthProvider } from '../auth/auth';
 
 @Injectable()
 export class UserDataProvider {
@@ -13,16 +12,14 @@ export class UserDataProvider {
   userListsRef: AngularFireList<any>;
   listsRef: AngularFireList<any>;
 
-  constructor(public db: AngularFireDatabase, public authData: AuthProvider,
-    public http: HttpClient ) {
-    this.authData.getUid()
-    .subscribe(data => {
-      this.uid = data.uid;
-      this.userRef = db.object(`users/${this.uid}`);
-      this.userListsRef = db.list(`user-lists/${this.uid}`);
-      this.listsRef = db.list('lists');
-    });
-   }
+  constructor(public db: AngularFireDatabase, public http: HttpClient) { }
+
+  setUid(uid: string) {
+    this.uid = uid;
+    this.userRef = this.db.object(`users/${this.uid}`);
+    this.userListsRef = this.db.list(`user-lists/${this.uid}`);
+    this.listsRef = this.db.list('lists');
+  }
 
   createUser(uid: string, email: string, bio: string, username: string) {
     let updates = {};
@@ -57,7 +54,7 @@ export class UserDataProvider {
   }
 
   createList(name: string, description: string) {
-    this.userListsRef.push({
+    this.db.list(`user-lists/${this.uid}`).push({
       name: name,
       description: description,
       numItems: 0
@@ -100,7 +97,7 @@ export class UserDataProvider {
   }
 
   getUserData(): Observable<any> {
-    return this.userRef.valueChanges();
+    return this.db.object(`users/${this.uid}`).valueChanges();
   }
 
   uploadImage(data?: Blob, base64Data?: string): Promise<any> {
