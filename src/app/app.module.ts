@@ -11,6 +11,7 @@ import { KeyInterceptor } from '../interceptors/key-interceptor';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { CallNumber } from '@ionic-native/call-number';
+import { Camera } from '@ionic-native/camera';
 import { AuthProvider } from '../providers/auth/auth';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -49,6 +50,7 @@ const firebaseConfig = {
     Geolocation,
     GoogleMaps,
     CallNumber,
+    Camera,
     PlacesDataProvider,
     { provide: HTTP_INTERCEPTORS, useClass: KeyInterceptor, multi: true },
     AuthProvider,

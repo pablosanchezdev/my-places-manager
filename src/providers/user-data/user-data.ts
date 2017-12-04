@@ -25,31 +25,28 @@ export class UserDataProvider {
    }
 
   createUser(uid: string, email: string, bio: string, username: string) {
+    let updates = {};
+    
+    updates[`/users/${uid}`] = {
+      email: email,
+      bio: bio,
+      username: username
+    };
+
+    // Every new user has a favorites empty list by default
+    let listId =  this.db.database.ref(`user-lists/${uid}`).push().key;
+    updates[`/user-lists/${uid}/${listId}`] = {
+      name: 'Favoritos',
+      description: 'Mis lugares favoritos',
+      numItems: 0
+    };
+    
+    // Perform a multi-path update
+    this.db.database.ref().update(updates);
+
     // An avatar with the initial letter of the username is created
     this.getUserInitialAvatar(username)
-    .subscribe(avatar => {
-      this.uploadImage(avatar).then(url => {
-        let updates = {};
-
-        updates[`/users/${uid}`] = {
-          email: email,
-          bio: bio,
-          username: username,
-          profile_image: url
-        };
-    
-        // Every new user has a favorites empty list by default
-        let listId =  this.db.database.ref(`user-lists/${uid}`).push().key;
-        updates[`/user-lists/${uid}/${listId}`] = {
-          name: 'Favoritos',
-          description: 'Mis lugares favoritos',
-          numItems: 0
-        };
-       
-        // Perform a multi-path update
-        this.db.database.ref().update(updates);
-      });
-    });
+    .subscribe(avatar => this.uploadImage(avatar));
   }
 
   getUserInitialAvatar(username: string): Observable<Blob> {
@@ -106,19 +103,23 @@ export class UserDataProvider {
     return this.userRef.valueChanges();
   }
 
-  uploadImage(data?: Blob, base64Data?: string): Promise<string> {
+  uploadImage(data?: Blob, base64Data?: string): Promise<any> {
     let imageRef = firebase.storage().ref().child(`${this.uid}.jpg`);
 
     if (data) {
       return imageRef.put(data)
       .then(snap => {
-        return snap.downloadURL;
+        return this.updateProfileImage(snap.downloadURL);
       });
     } else {
       return imageRef.putString(base64Data, 'base64')
       .then(snap => {
-        return snap.downloadURL;
+        return this.updateProfileImage(snap.downloadURL);
       });
     }
+  }
+
+  updateProfileImage(url: string) {
+    this.userRef.update({ profile_image: url });
   }
 }
