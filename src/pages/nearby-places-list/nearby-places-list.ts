@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
-import { AlertController, Loading, LoadingController } from 'ionic-angular';
-import { ModalController } from 'ionic-angular';
+import { IonicPage, Loading, ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { PlacesDataProvider } from '../../providers/places-data/places-data';
 import { FiltersData } from '../nearby-places-search-modal/nearby-places-search-modal';
-import { Utils } from './../../utils/utils';
+import { PlacesDataProvider } from '../../providers/places-data/places-data';
+import { UtilsProvider } from '../../providers/utils/utils';
 import { Place } from '../../interfaces/place';
 
 @IonicPage()
@@ -25,9 +23,8 @@ export class NearbyPlacesListPage {
 
   loading: Loading;
 
-  constructor(private geolocation: Geolocation, private alertCtrl: AlertController, 
-    private loadingCtrl: LoadingController, private placesProvider: PlacesDataProvider,
-    public modalCtrl: ModalController) { }
+  constructor(private geolocation: Geolocation, private placesProvider: PlacesDataProvider,
+    public modalCtrl: ModalController, private utils: UtilsProvider) { }
 
   ionViewDidLoad() {
     if (!this.lat || !this.lng) {
@@ -36,23 +33,22 @@ export class NearbyPlacesListPage {
   }
 
   getUserPosition() {
-    this.loading = Utils.showLoading(this.loadingCtrl, 'Cargando lugares cercanos...');
+    this.loading = this.utils.showLoading('Cargando lugares cercanos...');
 
     this.geolocation.getCurrentPosition()
     .then(data => {
       this.lat = data.coords.latitude;
       this.lng = data.coords.longitude;
       this.getPlaces();
-    })
-    .catch(err => {
+    }, err => {
       this.loading.dismiss();
-      Utils.showErrorAlert(this.alertCtrl, 'Error al obtener la ubicación del usuario: ' + err.message);
+      this.utils.showAlert(`Error al obtener la ubicación: ${err.message}`, false);
     });
   }
 
   getPlaces() {
     if (this.filters) {
-      this.loading = Utils.showLoading(this.loadingCtrl, 'Aplicando filtros...');
+      this.loading = this.utils.showLoading('Aplicando filtros...');
     }
     this.placesProvider.getNearbyPlaces(this.lat, this.lng, this.filters)
     .subscribe(data => {

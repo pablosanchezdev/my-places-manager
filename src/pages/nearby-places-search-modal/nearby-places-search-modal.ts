@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { ViewController } from 'ionic-angular';
-import { Utils } from '../../utils/utils';
+import { IonicPage, ViewController } from 'ionic-angular';
+import { UtilsProvider } from '../../providers/utils/utils';
 
 export interface FiltersData {
   keyword: string,
@@ -93,10 +92,9 @@ export class NearbyPlacesSearchModalPage {
     { name: 'Zoo', value: 'zoo' }
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    public viewCtrl: ViewController, public alertCtrl: AlertController) { }
+  constructor(public viewCtrl: ViewController, private utils: UtilsProvider) { }
 
-  ionViewWillEnter() {
+  ionViewDidLoad() {
     // Sort types alphabetically
     this.types.sort((a: object, b: object) => {
       if (a['name'] < b['name']) {
@@ -110,8 +108,9 @@ export class NearbyPlacesSearchModalPage {
   applyFilters() {
     // To sort by distance, it's necessary to specify keyword or type
     if (this.sortByDistance && !(this.keyword || this.type)) {
-      Utils.showErrorAlert(this.alertCtrl,
-        'Para ordenar por distancia es necesario especificar al menos keyword o tipo');
+      this.utils.showAlert(
+        'Para ordenar por distancia es necesario especificar al menos keyword o tipo', false
+      );
       return;
     }
     let filters = { keyword: this.keyword, type: this.type, 

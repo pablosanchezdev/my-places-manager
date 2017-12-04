@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading,
-  LoadingController, AlertController } from 'ionic-angular';
-import { PlacesDataProvider } from '../../providers/places-data/places-data';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { CallNumber } from '@ionic-native/call-number';
-import { Place } from '../../interfaces/place';
-import { Utils } from '../../utils/utils';
+import { PlacesDataProvider } from '../../providers/places-data/places-data';
 import { UserDataProvider } from '../../providers/user-data/user-data';
+import { UtilsProvider } from '../../providers/utils/utils';
+import { Place } from '../../interfaces/place';
 
 @IonicPage()
 @Component({
@@ -18,17 +17,16 @@ export class PlaceDetailPage {
   imageUrl: string;
 
   constructor(private navCtrl: NavController, private navParams: NavParams,
-    private loadingCtrl: LoadingController, private placesProvider: PlacesDataProvider,
-    private callNumber: CallNumber, private alertCtrl: AlertController,
-    private userData: UserDataProvider) { }
+    private alertCtrl: AlertController, private placesProvider: PlacesDataProvider,
+    private callNumber: CallNumber, private userData: UserDataProvider,
+    private utils: UtilsProvider) { }
 
   ionViewDidLoad() {
-    let placeId = this.navParams.get('placeId');
-    this.getPlaceInfo(placeId);
+    this.getPlaceInfo(this.navParams.get('placeId'));
   }
 
   getPlaceInfo(placeId: string) {
-    let loading: Loading = Utils.showLoading(this.loadingCtrl, 'Cargando datos...');
+    let loading = this.utils.showLoading('Cargando datos...');
     this.placesProvider.getPlaceDetails(placeId)
     .subscribe(data => {
       loading.dismiss();
@@ -42,7 +40,7 @@ export class PlaceDetailPage {
       this.imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?photoreference='
       + this.place.photos[0].photo_reference
       + '&maxheight=200'
-      + '&key=' + Utils.apiKey;
+      + '&key=' + this.utils.apiKey;
     } else {
       this.imageUrl = 'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg';
     }
@@ -57,7 +55,7 @@ export class PlaceDetailPage {
 
   launchDialer(phone: string) {
     this.callNumber.callNumber(phone, true)
-    .catch(() => Utils.showErrorAlert(this.alertCtrl, 'Error al llamar'));
+    .catch(() => this.utils.showAlert('Error al llamar', false));
   }
 
   onLinkClicked(url: string) {
@@ -88,7 +86,7 @@ export class PlaceDetailPage {
         alert = null;
         this.userData.addPlaceToList(data, id, name, address, imageUrl)
         .then(() => {
-          Utils.showErrorAlert(this.alertCtrl, 'Añadido correctamente');
+          this.utils.showAlert('Añadido correctamente', true);
         });
       }
     });

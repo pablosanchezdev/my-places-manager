@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, Loading, LoadingController } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 import { PlacesDataProvider } from '../../providers/places-data/places-data';
-import { Utils } from '../../utils/utils';
+import { UtilsProvider } from '../../providers/utils/utils';
 import { Place } from '../../interfaces/place';
 
 @IonicPage()
@@ -16,11 +16,11 @@ export class SearchPlacesListPage {
   nextPageToken: string;
   places: Place[];
 
-  constructor(private provider: PlacesDataProvider, private loadingCtrl: LoadingController) { }
+  constructor(private provider: PlacesDataProvider, private utils: UtilsProvider) { }
 
   onInput(input: string) {
     if (input) {
-      let loading: Loading = Utils.showLoading(this.loadingCtrl, 'Buscando lugares...');
+      let loading = this.utils.showLoading('Buscando lugares...');
       this.textSearch = input;
       this.provider.performTextSearch(encodeURIComponent(input))
       .subscribe(data => {

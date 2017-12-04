@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Utils } from '../../utils/utils';
+import { IonicPage, NavParams } from 'ionic-angular';
+import { UtilsProvider } from '../../providers/utils/utils';
 
 interface PhotoRef {
   photo_reference: string;
@@ -16,7 +16,7 @@ export class PlacePhotosPage {
   name: string;
   imageUrls: string[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) { }
+  constructor(public navParams: NavParams, private utils: UtilsProvider) { }
 
   ionViewWillEnter() {
     this.name = this.navParams.get('name');
@@ -29,7 +29,7 @@ export class PlacePhotosPage {
       this.imageUrls.push('https://maps.googleapis.com/maps/api/place/photo?photoreference='
       + photoRef.photo_reference
       + '&maxheight=200'
-      + '&key=' + Utils.apiKey);
+      + '&key=' + this.utils.apiKey);
     });
   }
 }

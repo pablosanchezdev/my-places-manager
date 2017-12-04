@@ -17,6 +17,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { UserDataProvider } from '../providers/user-data/user-data';
+import { UtilsProvider } from '../providers/utils/utils';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDZ-iX0pxubpRsNHYg4ezx0K86L5rcsEqs',
@@ -55,7 +56,8 @@ const firebaseConfig = {
     { provide: HTTP_INTERCEPTORS, useClass: KeyInterceptor, multi: true },
     AuthProvider,
     AngularFireDatabase,
-    UserDataProvider
+    UserDataProvider,
+    UtilsProvider
   ],
 })
 export class AppModule {}

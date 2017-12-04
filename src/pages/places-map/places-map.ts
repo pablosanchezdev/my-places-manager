@@ -1,11 +1,15 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, AlertController, Events, Platform,
-  Loading, LoadingController, NavController } from 'ionic-angular';
-import { GoogleMaps, GoogleMap, GoogleMapsEvent, MarkerCluster,
-  MarkerOptions, Marker } from '@ionic-native/google-maps';
+import { IonicPage, NavController, Events, Loading } from 'ionic-angular';
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  MarkerCluster,
+  MarkerOptions,
+  Marker } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { PlacesDataProvider } from '../../providers/places-data/places-data';
-import { Utils } from './../../utils/utils';
+import { UtilsProvider } from '../../providers/utils/utils';
 import { Place } from '../../interfaces/place';
 
 interface Position {
@@ -33,10 +37,9 @@ export class PlacesMapPage {
   loadMorePlaces: string = 'loadMorePlaces';
   finish: string = 'finish';
 
-  constructor (private platform: Platform, private googleMaps: GoogleMaps,
-    private loadingCtrl: LoadingController, private geolocation: Geolocation,
-    private alertCtrl: AlertController, private placesProvider: PlacesDataProvider,
-    private events: Events, private navCtrl: NavController) { 
+  constructor (private navCtrl: NavController, private googleMaps: GoogleMaps,
+    private geolocation: Geolocation, private placesProvider: PlacesDataProvider,
+    private events: Events, private utils: UtilsProvider) { 
       this.events.subscribe(this.loadMorePlaces, (input, token) => {
         this.loadPlaces(input, token);
       });
@@ -46,9 +49,7 @@ export class PlacesMapPage {
     }
 
   ionViewDidLoad() {
-    this.platform.ready().then(() => {
-      this.loadMap();
-    });
+    this.loadMap();
   }
   
   loadMap() {
@@ -69,11 +70,8 @@ export class PlacesMapPage {
         lat: data.coords.latitude,
         lng: data.coords.longitude
       });
-    })
-    .catch(err => {
-      Utils.showErrorAlert(this.alertCtrl,
-        'Error al obtener la ubicación del usuario: ' + err.message);
-    });
+    }, err => this.utils.showAlert(
+        `Error al obtener la ubicación del usuario: ${err.message}`, false));
   }
 
   centerMapInPosition(location: Position) {
@@ -107,7 +105,7 @@ export class PlacesMapPage {
     if (this.markerCluster) {
       this.markerCluster.remove();
     }
-    this.loading = Utils.showLoading(this.loadingCtrl, 'Cargando lugares...');
+    this.loading = this.utils.showLoading('Cargando lugares...');
     this.loadPlaces(input);
   }
 

@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
-import {
-  IonicPage,
-  NavController,
-  LoadingController,
-  Loading,
-  AlertController } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { AuthProvider } from '../../providers/auth/auth';
 import { EmailValidator } from '../../validators/email';
-import { Utils } from '../../utils/utils';
+import { UtilsProvider } from '../../providers/utils/utils';
 
 @IonicPage()
 @Component({
@@ -22,9 +16,10 @@ export class LoginPage {
 
   passwordMinLength: number = 6;
 
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder,
-    public authData: AuthProvider, public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController) {
+  constructor(public formBuilder: FormBuilder, public authData: AuthProvider,
+    private utils: UtilsProvider) { }
+
+  ionViewDidLoad() {
     this.initLoginForm();
   }
 
@@ -43,10 +38,10 @@ export class LoginPage {
     }, error => {
       loading.dismiss()
       .then(() => {
-        Utils.showErrorAlert(this.alertCtrl, error.message);
+        this.utils.showAlert(error.message, false);
       });
     });
 
-    let loading: Loading = Utils.showLoading(this.loadingCtrl, 'Autenticando usuario...');
+    let loading = this.utils.showLoading('Autenticando usuario...');
   }
 }

@@ -1,16 +1,10 @@
 import { Component } from '@angular/core';
-import {
-  IonicPage,
-  NavController,
-  LoadingController,
-  Loading,
-  AlertController } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { AuthProvider } from '../../providers/auth/auth';
 import { UserDataProvider } from '../../providers/user-data/user-data';
 import { EmailValidator } from '../../validators/email';
-import { Utils } from '../../utils/utils';
+import { UtilsProvider } from '../../providers/utils/utils';
 
 @IonicPage()
 @Component({
@@ -22,11 +16,12 @@ export class RegisterPage {
   registerForm: FormGroup;
 
   passwordMinLength: number = 6;
-  bioMaxLength: number = 60;
+  bioMaxLength: number = 25;
 
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder,
-    public authData: AuthProvider, public userData: UserDataProvider,
-    public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
+  constructor(public formBuilder: FormBuilder, private authData: AuthProvider,
+    private userData: UserDataProvider, private utils: UtilsProvider) { }
+
+  ionViewDidLoad() {
     this.initRegisterForm();
   }
 
@@ -53,10 +48,10 @@ export class RegisterPage {
     }, error => {
       loading.dismiss()
       .then(() => {
-        Utils.showErrorAlert(this.alertCtrl, error.message);
+        this.utils.showAlert(error.message, false);
       });
     });
 
-    let loading: Loading = Utils.showLoading(this.loadingCtrl, 'Registrando usuario...');
+    let loading = this.utils.showLoading('Registrando usuario...');
   }
 }

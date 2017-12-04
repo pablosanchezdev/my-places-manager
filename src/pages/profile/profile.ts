@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, FabContainer } from 'ionic-angular';
+import { IonicPage, NavController, FabContainer } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Observable } from 'rxjs/Observable';
 import { AuthProvider } from '../../providers/auth/auth';
 import { UserDataProvider } from '../../providers/user-data/user-data';
-import { Utils } from '../../utils/utils';
+import { UtilsProvider } from '../../providers/utils/utils';
 
 @IonicPage()
 @Component({
@@ -15,8 +15,9 @@ export class ProfilePage {
 
   user: Observable<any>;
 
-  constructor(public navCtrl: NavController, public authData: AuthProvider,private alert:AlertController,
-    public userData: UserDataProvider, private camera: Camera) { }
+  constructor(public navCtrl: NavController, private authData: AuthProvider,
+    private userData: UserDataProvider, private camera: Camera,
+    private utils: UtilsProvider) { }
 
   ionViewDidLoad() {
     this.user = this.userData.getUserData();
@@ -42,7 +43,7 @@ export class ProfilePage {
     this.camera.getPicture(cameraOptions)
     .then(imageData => {
       this.userData.uploadImage(null, imageData);
-    }, err => Utils.showErrorAlert(this.alert, err)); 
+    }, err => this.utils.showAlert(err, false)); 
   }
 
   goToLists() {
