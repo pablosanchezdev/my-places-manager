@@ -4,9 +4,11 @@ import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
+  LatLngBounds,
   MarkerCluster,
   MarkerOptions,
-  Marker } from '@ionic-native/google-maps';
+  Marker, 
+  LatLng} from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { PlacesDataProvider } from '../../providers/places-data/places-data';
 import { UtilsProvider } from '../../providers/utils/utils';
@@ -123,6 +125,7 @@ export class PlacesMapPage {
 
   onPlacesLoaded() {
     let markers: MarkerOptions[] = [];
+    let bounds = new LatLngBounds();
 
     for (let place of this.places) {
       markers.push({
@@ -135,7 +138,15 @@ export class PlacesMapPage {
           lng: place.geometry.location.lng
         }
       });
+      bounds.extend(new LatLng(place.geometry.location.lat,
+        place.geometry.location.lng));
     }
+
+    this.map.animateCamera({
+      target: bounds,
+      zoom: 12,
+      duration: 800
+    });
 
     this.loading.dismiss();
     this.addCluster(markers);
