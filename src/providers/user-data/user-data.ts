@@ -67,6 +67,10 @@ export class UserDataProvider {
     });
   }
 
+  getList(listId: string) {
+    return this.db.list(`lists/${listId}`).snapshotChanges();
+  }
+
   deleteList(listId: string) {
     this.userListsRef.remove(listId);
     this.listsRef.remove(listId);
@@ -84,6 +88,13 @@ export class UserDataProvider {
       return listRef.once('value', snap => {
         return listRef.update({ numItems: ++snap.val().numItems });
       });
+    });
+  }
+
+  deletePlaceFromList(listId: string, placeId: string) {
+    this.db.list(`lists/${listId}`).remove(placeId);
+    this.db.database.ref(`user-lists/${this.uid}/${listId}`).once('value', snap => {
+      snap.ref.update({ numItems: --snap.val().numItems });
     });
   }
 

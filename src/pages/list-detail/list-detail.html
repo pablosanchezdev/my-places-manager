@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ name }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item-sliding #slidingItem *ngFor="let place of places | async">
+      <ion-item (click)="getPlaceDetails(place.payload.key)">
+        <ion-avatar item-start>
+          <img [src]="place.payload.val().photoUrl">
+        </ion-avatar>
+        <h2>{{ place.payload.val().name }}</h2>
+        <p>{{ place.payload.val().address }}</p>
+      </ion-item>
+      <ion-item-options side="right" (ionSwipe)="deletePlaceFromList(slidingItem, listId, place.payload.key)">
+        <button ion-button icon-only color="danger" (click)="deletePlaceFromList(slidingItem, listId, place.payload.key)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

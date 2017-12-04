@@ -19,8 +19,11 @@ export class MyListsPage {
     this.lists = this.userData.getUserLists();
   }
 
-  onListClicked(listId: string) {
-    this.navCtrl.setRoot('ListDetailPage', { id: listId });
+  onListClicked(listId: string, name: string) {
+    this.navCtrl.push('ListDetailPage', {
+      id: listId,
+      name: name
+    });
   }
 
   delete(slidingItem: ItemSliding, listId: string) {

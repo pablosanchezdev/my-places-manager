@@ -23,7 +23,7 @@
 
   <ion-list>
     <ion-item-sliding #slidingItem *ngFor="let list of lists | async">
-      <ion-item (click)="onListClicked(list.payload.key)">
+      <ion-item (click)="onListClicked(list.payload.key, list.payload.val().name)">
         <h2>{{ list.payload.val().name }}</h2>
         <p>{{ list.payload.val().description }}</p>
         <ion-badge item-end>{{ list.payload.val().numItems }} items</ion-badge>
