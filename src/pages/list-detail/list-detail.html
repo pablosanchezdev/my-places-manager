@@ -9,6 +9,11 @@
 
 <ion-content padding>
 
+  <div class="center-vertical" *ngIf="(places|async)?.length === 0">
+    <h3>Lista vacía</h3>
+    <ion-icon name="folder-open"></ion-icon>
+  </div>
+
   <ion-list>
     <ion-item-sliding #slidingItem *ngFor="let place of places | async">
       <ion-item (click)="getPlaceDetails(place.payload.key)">
