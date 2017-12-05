@@ -42,7 +42,9 @@ export class ProfilePage {
 
     this.camera.getPicture(cameraOptions)
     .then(imageData => {
-      this.userData.uploadImage(null, imageData);
+      let loading = this.utils.showLoading('Subiendo imagen...');
+      this.userData.uploadImage(null, imageData)
+      .then(() => loading.dismiss());
     }, err => this.utils.showAlert(err, false)); 
   }
 

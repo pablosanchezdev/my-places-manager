@@ -16,6 +16,7 @@ export class PlaceDetailPage {
 
   place: Place;
   imageUrl;
+  imageDbUrl: string;
 
   constructor(private navCtrl: NavController, private navParams: NavParams,
     private alertCtrl: AlertController, private placesProvider: PlacesDataProvider,
@@ -43,8 +44,13 @@ export class PlaceDetailPage {
       .subscribe(data => {
         this.imageUrl = this.sanitize(URL.createObjectURL(data));
       });
+      this.imageDbUrl = 'https://maps.googleapis.com/maps/api/place/photo?photoreference='
+        + `${this.place.photos[0].photo_reference}`
+        + '&maxheight=200'
+        + '&key=AIzaSyDs1o9mW-vhqMcBocjTQkZdGi5I2EXmt5I';
     } else {
       this.imageUrl = 'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg';
+      this.imageDbUrl = this.imageUrl;
     }
   }
 
@@ -86,9 +92,9 @@ export class PlaceDetailPage {
       text: 'Ok',
       handler: data => {
         alert = null;
-        this.userData.addPlaceToList(data, id, name, address, imageUrl)
+        this.userData.addPlaceToList(data, id, name, address, this.imageDbUrl)
         .then(() => {
-          this.utils.showAlert('Añadido correctamente', true);
+          this.utils.showToast('Añadido correctamente');
         });
       }
     });

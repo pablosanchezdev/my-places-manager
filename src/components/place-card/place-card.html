@@ -19,12 +19,12 @@
       <ion-col *ngIf="place.opening_hours">
         <div>
           <ion-icon name="clock"></ion-icon>
-          <span *ngIf="place.opening_hours.open_now" class="place-open">
+          <span *ngIf="place.opening_hours.open_now; else closed" class="place-open">
             Abierto ahora
           </span>
-          <span *ngIf="!place.opening_hours.open_now" class="place-closed">
+          <ng-template #closed class="place-closed">
             Cerrado ahora
-          </span>
+          </ng-template>
         </div>
       </ion-col>
       <ion-col *ngIf="place.rating">

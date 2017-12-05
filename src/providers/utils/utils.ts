@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AlertController, Loading, LoadingController } from 'ionic-angular';
+import { AlertController, Loading, LoadingController, ToastController } from 'ionic-angular';
 
 @Injectable()
 export class UtilsProvider {
 
-  constructor(private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
+  constructor(private alertCtrl: AlertController, private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController) { }
   
   showAlert(msg: string, isSuccess: boolean) {
     this.alertCtrl.create({
@@ -22,5 +23,13 @@ export class UtilsProvider {
 
     loading.present();
     return loading;
+  }
+
+  showToast(msg: string) {
+    this.toastCtrl.create({
+      message: msg,
+      closeButtonText: 'Ok',
+      showCloseButton: true
+    }).present();
   }
 }

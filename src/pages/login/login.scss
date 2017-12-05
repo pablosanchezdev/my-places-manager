@@ -1,11 +1,15 @@
 .page-login {
 
   h1 {
-    margin: 20px;
+    margin: 30px;
+  }
+
+  ion-item:nth-child(even) {
+    margin-top: 15px;
   }
 
   button {
-    margin-top: 40px;
+    margin-top: 50px;
   }
 
   p {

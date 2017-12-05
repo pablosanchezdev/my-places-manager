@@ -21,7 +21,7 @@ export class PlacePhotosPage {
   constructor(public navParams: NavParams, private placesData: PlacesDataProvider,
     private sanitizer: DomSanitizer) { }
 
-  ionViewWillEnter() {
+  ionViewDidLoad() {
     this.name = this.navParams.get('name');
     let photoRefs = this.navParams.get('photoRefs');
     this.getPhotos(photoRefs);

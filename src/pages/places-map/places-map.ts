@@ -145,7 +145,7 @@ export class PlacesMapPage {
     this.map.animateCamera({
       target: bounds,
       zoom: 12,
-      duration: 800
+      duration: 1000
     });
 
     this.loading.dismiss();
@@ -156,7 +156,7 @@ export class PlacesMapPage {
     this.map.addMarkerCluster({
       markers: markers,
       icons: [
-        { min: 2, max: 40, url: "assets/imgs/cluster_marker.png", anchor: { x: 16, y: 16 } }
+        { min: 2, max: 40, url: 'assets/imgs/cluster_marker.png', anchor: { x: 16, y: 16 } }
       ]
     })
     .then((markerCluster: MarkerCluster) => {

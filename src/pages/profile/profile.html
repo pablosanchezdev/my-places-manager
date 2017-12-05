@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -13,7 +13,7 @@
 <ion-content>
 
   <ion-fab #fab top right edge>
-    <button ion-fab><ion-icon name="add"></ion-icon></button>
+    <button ion-fab color="secondary"><ion-icon name="add"></ion-icon></button>
     <ion-fab-list>
       <button ion-fab (click)="onFabClicked(fab, true)"><ion-icon name="camera"></ion-icon></button>
       <button ion-fab (click)="onFabClicked(fab, false)"><ion-icon name="images"></ion-icon></button>

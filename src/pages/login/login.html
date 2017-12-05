@@ -33,9 +33,9 @@
       </ion-input>
     </ion-item>
     <ion-item no-lines class="error"
-    *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty">
-    <p>La contraseña debe tener al menos {{ passwordMinLength }} caracteres</p>
-  </ion-item>
+      *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty">
+      <p>La contraseña debe tener al menos {{ passwordMinLength }} caracteres</p>
+    </ion-item>
 
     <button ion-button block large text-uppercase type="submit" [disabled]="!loginForm.valid">
       Log in

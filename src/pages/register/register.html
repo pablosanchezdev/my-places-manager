@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Crear una cuenta</ion-title>
   </ion-navbar>
 
@@ -13,7 +13,7 @@
 
   <form [formGroup]="registerForm" (submit)="signupUser()" novalidate>
 
-    <ion-item>
+    <ion-item class="margin-top">
       <ion-label stacked>Nombre de usuario</ion-label>
       <ion-input #username formControlName="username" placeholder="Tu nombre de usuario"
         [class.invalid]="!registerForm.controls.username.valid
@@ -25,7 +25,7 @@
       <p>Caracteres permitidos: letras, números, ., _ y -</p>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="margin-top">
       <ion-label stacked>Email</ion-label>
       <ion-input #email formControlName="email" type="email" placeholder="Tu email"
         [class.invalid]="!registerForm.controls.email.valid
@@ -37,7 +37,7 @@
       <p>Introduce un email válido</p>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="margin-top">
       <ion-label stacked>Contraseña</ion-label>
       <ion-input #password formControlName="password" type="password" placeholder="Tu contraseña"
         [class.invalid]="!registerForm.controls.password.valid
@@ -49,7 +49,7 @@
       <p>La contraseña debe tener al menos {{ passwordMinLength }} caracteres</p>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="margin-top">
       <ion-label stacked>Bio</ion-label>
       <ion-input #bio formControlName="bio" placeholder="Una pequeña descripción"
         [class.invalid]="!registerForm.controls.bio.valid
