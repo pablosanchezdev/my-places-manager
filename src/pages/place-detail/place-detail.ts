@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { CallNumber } from '@ionic-native/call-number';
 import { PlacesDataProvider } from '../../providers/places-data/places-data';
@@ -6,6 +6,7 @@ import { UserDataProvider } from '../../providers/user-data/user-data';
 import { Place } from '../../interfaces/place';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UtilsProvider } from '../../providers/utils/utils';
+import { Chart } from 'chart.js';
 
 @IonicPage()
 @Component({
@@ -13,6 +14,8 @@ import { UtilsProvider } from '../../providers/utils/utils';
   templateUrl: 'place-detail.html',
 })
 export class PlaceDetailPage {
+
+  @ViewChild('canvas') canvas: ElementRef;
 
   place: Place;
   imageUrl;
@@ -35,6 +38,7 @@ export class PlaceDetailPage {
       loading.dismiss();
       this.place = data.result;
       this.loadPlaceImage();
+      this.generateRatingsChart();
     });
   }
 
@@ -52,6 +56,65 @@ export class PlaceDetailPage {
       this.imageUrl = 'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg';
       this.imageDbUrl = this.imageUrl;
     }
+  }
+
+  generateRatingsChart() {
+    let labels: string[] = [];
+    let reviews: number[] = [];
+    let count: number = 1;
+    this.place.reviews.forEach(review => {
+      labels.push(`u${count}`);
+      reviews.push(review.rating);
+      count++;
+    });
+
+    let config = {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: reviews,
+          backgroundColor: [
+            'rgba(0, 153, 255, 1)'
+          ],
+          borderColor: [
+            'rgba(0, 153, 255, 1)'
+          ],
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        title: {
+          display: true,
+          text: 'Ratings de los usuarios'
+        },
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Usuarios'
+            }
+          }],
+          yAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Ratings'
+            },
+            ticks: {
+              beginAtZero:true
+            }
+          }]
+        }
+      }
+    };
+
+    new Chart(this.canvas.nativeElement, config);
   }
 
   onImageClicked() {

@@ -9,5 +9,8 @@ export interface Place {
   },
   photos: [
     { photo_reference: string }
+  ],
+  reviews: [
+    { rating: number }
   ]
 }

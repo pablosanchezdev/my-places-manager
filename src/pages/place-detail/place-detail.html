@@ -52,8 +52,14 @@
 
       <ion-item *ngIf="place" no-padding>
         <ion-icon name="link" item-start></ion-icon>
-        <a item-end (click)="onLinkClicked(place.website)">{{ place.website }}</a>
+        <a *ngIf="place.website; else nowebsite" item-end
+          (click)="onLinkClicked(place.website)">{{ place.website }}</a>
+        <ng-template #nowebsite>
+          Sin página web
+        </ng-template>
       </ion-item>
+
+      <canvas #canvas></canvas>
 
     </ion-card-content>
 
