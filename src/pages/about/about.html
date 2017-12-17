@@ -9,7 +9,8 @@
 
 </ion-header>
 
-<ion-content padding class="center">
+
+<ion-content padding text-center>
   <ion-title>
     <strong>My Places Manager</strong>
   </ion-title>
@@ -25,17 +26,18 @@
     hasta listas personalizadas.
   </p>
   <p>
-    Para ello, hace uso de las APIs de <a href="https://developers.google.com/places/">places</a>
-    y <a href="https://developers.google.com/maps/">maps</a> de Google.
+    Para ello, hace uso de las APIs de <a (click)="onLinkClicked('https://developers.google.com/places/')">places</a>
+    y <a (click)="onLinkClicked('https://developers.google.com/maps/')">maps</a> de Google.
   </p>
   <ion-icon id="icon" name="ionic"></ion-icon>
   <p>
-    Desarrollada usando <a href="https://ionicframework.com/">Ionic Framework</a>
+    Desarrollada usando <a (click)="onLinkClicked('https://ionicframework.com/')">Ionic Framework</a>
   </p>
 </ion-content>
 
+
 <ion-footer>
   <ion-toolbar>
-    <ion-title class="center">Developed by Pablo Sanchez</ion-title>
+    <ion-title text-center>Developed by Pablo Sanchez</ion-title>
   </ion-toolbar>
 </ion-footer>

@@ -10,8 +10,7 @@ export class AboutPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) { }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AboutPage');
+  onLinkClicked(url: string) {
+    window.open(url, '_system');
   }
-
 }
