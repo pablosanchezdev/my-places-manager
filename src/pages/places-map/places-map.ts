@@ -8,7 +8,7 @@ import {
   MarkerCluster,
   MarkerOptions,
   Marker, 
-  LatLng} from '@ionic-native/google-maps';
+  LatLng } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { PlacesDataProvider } from '../../providers/places-data/places-data';
 import { UtilsProvider } from '../../providers/utils/utils';
@@ -115,9 +115,10 @@ export class PlacesMapPage {
     this.placesProvider.performTextSearch(input, token)
     .subscribe(data => {
       data.results.forEach(place => this.places.push(place));
+      // Load more places if there are more
       if (data.next_page_token) {
         this.events.publish(this.loadMorePlaces, input, data.next_page_token);
-      } else {
+      } else {  // No more places available
         this.events.publish(this.finish);
       }
     });
@@ -138,6 +139,7 @@ export class PlacesMapPage {
           lng: place.geometry.location.lng
         }
       });
+      // Make the markers fit on the map
       bounds.extend(new LatLng(place.geometry.location.lat,
         place.geometry.location.lng));
     }
@@ -152,6 +154,7 @@ export class PlacesMapPage {
     this.addCluster(markers);
   } 
 
+  // Place markers are grouped in clusters
   addCluster(markers: MarkerOptions[]) {
     this.map.addMarkerCluster({
       markers: markers,
@@ -167,7 +170,7 @@ export class PlacesMapPage {
       .subscribe(params => {
         let marker: Marker = params[1];
         marker.showInfoWindow();
-        setTimeout(this.getPlaceDetails(marker.get('place_id')), 1000);
+        setTimeout(this.getPlaceDetails(marker.get('place_id')), 1500);
       });
     });
   }

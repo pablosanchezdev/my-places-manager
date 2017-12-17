@@ -27,7 +27,7 @@ export class ProfilePage {
     fab.close();
 
     let cameraOptions: CameraOptions = {
-      quality: 100,
+      quality: 70,
       destinationType: this.camera.DestinationType.DATA_URL,
       mediaType: this.camera.MediaType.PICTURE,
       encodingType: this.camera.EncodingType.JPEG,
@@ -37,6 +37,7 @@ export class ProfilePage {
     if (isCamera) {
       cameraOptions.saveToPhotoAlbum = true;
     } else {
+      // Open device gallery
       cameraOptions.sourceType = this.camera.PictureSourceType.SAVEDPHOTOALBUM;
     }
 

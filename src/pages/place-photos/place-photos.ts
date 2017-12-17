@@ -3,7 +3,6 @@ import { IonicPage, NavParams } from 'ionic-angular';
 import { PlacesDataProvider } from '../../providers/places-data/places-data';
 import { DomSanitizer } from '@angular/platform-browser';
 
-
 interface PhotoRef {
   photo_reference: string;
 }

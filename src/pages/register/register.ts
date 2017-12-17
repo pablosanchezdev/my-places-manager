@@ -15,7 +15,7 @@ export class RegisterPage {
 
   registerForm: FormGroup;
 
-  passwordMinLength: number = 6;
+  passwordMinLength: number = 6;  // Firebase passwords need at least 6 characters
   bioMaxLength: number = 25;
 
   constructor(public formBuilder: FormBuilder, private authData: AuthProvider,

@@ -115,14 +115,18 @@ export class NearbyPlacesSearchModalPage {
       );
       return;
     }
+
+    // Sort by distance and radius can not be on the request simultaneously
     if (this.sortByDistance && this.radius !== 5000) {
       this.utils.showAlert(
         'Si especifica un radio distinto de 5000 (por defecto), no puede marcar "Ordenar por distancia"', false
       );
       return;
     }
+
     let filters = { keyword: this.keyword, radius: this.radius, type: this.type, 
       sortByDistance: this.sortByDistance, language: this.language, openNow: this.openNow };
+    
     this.viewCtrl.dismiss(filters);
   }
 

@@ -9,6 +9,7 @@ export class KeyInterceptor implements HttpInterceptor {
 
   constructor() { }
 
+  // Intercept every outgoing request and add api key
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const placeReq = req.clone({
       params: req.params.set('key', this.apiKey)

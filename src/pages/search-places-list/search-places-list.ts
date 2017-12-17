@@ -34,6 +34,7 @@ export class SearchPlacesListPage {
   }
 
   loadMorePlaces(infiniteScroll) {
+    // Load more places if there are more available
     if (this.nextPageToken) {
       this.provider.performTextSearch(this.textSearch, this.nextPageToken)
       .subscribe(data => {

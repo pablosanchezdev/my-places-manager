@@ -55,6 +55,7 @@ export class MyListsPage {
     }).present();
   }
 
+  // New lists need name and description
   isValid(name: string, description: string) {
     return name && description;
   }

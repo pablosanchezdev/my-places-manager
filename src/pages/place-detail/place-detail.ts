@@ -58,6 +58,7 @@ export class PlaceDetailPage {
     }
   }
 
+  // Create a line chart with user reviews
   generateRatingsChart() {
     let labels: string[] = [];
     let reviews: number[] = [];

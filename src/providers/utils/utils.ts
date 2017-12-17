@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AlertController, Loading, LoadingController, ToastController } from 'ionic-angular';
 
+// Utility methods used in whole application
 @Injectable()
 export class UtilsProvider {
 

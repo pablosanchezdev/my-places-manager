@@ -22,6 +22,7 @@ export class PlacesDataProvider {
     let request = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
       + `location=${lat},${lng}`;
 
+    // Add filters data
     if (filters) {
       if (filters.keyword) {
         request += `&keyword=${filters.keyword}`;
@@ -48,6 +49,7 @@ export class PlacesDataProvider {
       request += '&radius=5000';  // Default radius is 5000 m
     }
 
+    // Token is necessary to perform infinite scroll
     if (token) {
       request += `&pagetoken=${token}`;
     } 
@@ -73,6 +75,7 @@ export class PlacesDataProvider {
   }
 
   getPhoto(photoRef: string): Observable<Blob> {
+    // Place images are returned as Blob files
     return this.http.get(
       `https://maps.googleapis.com/maps/api/place/photo?photoreference=${photoRef}
       &maxheight=200`,

@@ -14,7 +14,7 @@ export class LoginPage {
 
   loginForm: FormGroup;
 
-  passwordMinLength: number = 6;
+  passwordMinLength: number = 6;  // Firebase passwords need at least 6 characters
 
   constructor(public formBuilder: FormBuilder, public authData: AuthProvider,
     private utils: UtilsProvider) {

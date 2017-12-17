@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, Nav, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, Nav } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { UserDataProvider } from '../../providers/user-data/user-data';
 
@@ -29,8 +29,7 @@ export class MenuPage {
 
   user: Observable<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    public userData: UserDataProvider) { }
+  constructor(public userData: UserDataProvider) { }
 
   ionViewDidLoad() {
     this.user = this.userData.getUserData();
