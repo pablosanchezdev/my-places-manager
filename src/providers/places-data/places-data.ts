@@ -20,35 +20,36 @@ export class PlacesDataProvider {
 
   getNearbyPlaces(lat: number, lng: number, filters?: FiltersData, token?: string) {
     let request = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
-      + 'location=' + lat + ',' + lng
-      + '&radius=5000';
+      + `location=${lat},${lng}`;
 
     if (filters) {
       if (filters.keyword) {
-        request += '&keyword=' + filters.keyword;
+        request += `&keyword=${filters.keyword}`;
       }
 
       if (filters.type) {
-        request += '&type=' + filters.type;
+        request += `&type=${filters.type}`;
       }
 
       if (filters.sortByDistance) {
         request += '&rankby=distance';
       } else {
-        request += '&radius=5000';
+        request += `&radius=${filters.radius}`;
       }
 
       if (filters.language) {
-        request += '&language=' + filters.language;
+        request += `&language=${filters.language}`;
       }
 
       if (filters.openNow) {
         request += '&opennow';
       }
+    } else {
+      request += '&radius=5000';  // Default radius is 5000 m
     }
 
     if (token) {
-      request += '&pagetoken=' + token;
+      request += `&pagetoken=${token}`;
     } 
 
     return this.http.get<PlacesResponse>(request);

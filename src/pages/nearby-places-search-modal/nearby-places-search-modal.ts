@@ -4,6 +4,7 @@ import { UtilsProvider } from '../../providers/utils/utils';
 
 export interface FiltersData {
   keyword: string,
+  radius: number,
   type: string,
   sortByDistance: boolean,
   language: string,
@@ -18,6 +19,7 @@ export interface FiltersData {
 export class NearbyPlacesSearchModalPage {
 
   keyword: string = '';
+  radius: number = 5000;
   type: string = '';
   sortByDistance: boolean = false;
   language: string = 'es';
@@ -113,7 +115,13 @@ export class NearbyPlacesSearchModalPage {
       );
       return;
     }
-    let filters = { keyword: this.keyword, type: this.type, 
+    if (this.sortByDistance && this.radius !== 5000) {
+      this.utils.showAlert(
+        'Si especifica un radio distinto de 5000 (por defecto), no puede marcar "Ordenar por distancia"', false
+      );
+      return;
+    }
+    let filters = { keyword: this.keyword, radius: this.radius, type: this.type, 
       sortByDistance: this.sortByDistance, language: this.language, openNow: this.openNow };
     this.viewCtrl.dismiss(filters);
   }
@@ -124,6 +132,7 @@ export class NearbyPlacesSearchModalPage {
 
   resetFilters() {
     this.keyword = '';
+    this.radius = 5000;
     this.type = '';
     this.sortByDistance = false;
     this.language = 'es';

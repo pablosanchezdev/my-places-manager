@@ -31,10 +31,23 @@
 
   <ion-list>
     <ion-list-header>
+      Radio
+      <ion-badge item-end color="dark">{{ radius }}</ion-badge>
+    </ion-list-header>
+    <ion-item>
+      <ion-range min="0" max="10000" step="500" snaps="true" pin="true" [(ngModel)]="radius">
+        <ion-icon range-left small color="secondary" name="walk"></ion-icon>
+        <ion-icon range-right color="secondary" name="walk"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
       Tipo de lugar
     </ion-list-header>
     <ion-item>
-      <ion-select [(ngModel)]="type" [selectOptions]="selectOptions" placeholder="Sin tipo">
+      <ion-select [(ngModel)]="type" [selectOptions]="selectOptions" placeholder="Tipo">
         <ion-option *ngFor="let type of types" [value]="type.value">{{ type.name }}</ion-option>
       </ion-select>
     </ion-item>
@@ -80,8 +93,8 @@
 <ion-footer>
   <ion-toolbar>
     <div text-center>
-      <button ion-button round text-uppercase (click)="resetFilters()">
-        Resetear filtros
+      <button ion-button round (click)="resetFilters()">
+        RESETEAR FILTROS
       </button>
     </div>
   </ion-toolbar>
