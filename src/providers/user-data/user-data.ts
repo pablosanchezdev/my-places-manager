@@ -85,6 +85,13 @@ export class UserDataProvider {
     });
   }
 
+  checkIfPlaceBelongsToList(listId: string, placeId: string): Promise<boolean> {
+    return this.db.database.ref(`lists/${listId}/${placeId}`).once('value')
+    .then(snap => {
+      return snap.exists();
+    });
+  }
+
   deletePlaceFromList(listId: string, placeId: string) {
     this.db.list(`lists/${listId}`).remove(placeId);
     this.db.database.ref(`user-lists/${this.uid}/${listId}`).once('value', snap => {

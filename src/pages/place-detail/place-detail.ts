@@ -70,7 +70,7 @@ export class PlaceDetailPage {
     window.open(url, '_system');
   }
 
-  savePlace(id: string, name: string, address: string, imageUrl: string) {
+  savePlace(id: string, name: string, address: string) {
     let alert = this.alertCtrl.create();
     alert.setTitle('Lista');
 
@@ -92,9 +92,17 @@ export class PlaceDetailPage {
       text: 'Ok',
       handler: data => {
         alert = null;
-        this.userData.addPlaceToList(data, id, name, address, this.imageDbUrl)
-        .then(() => {
-          this.utils.showToast('Añadido correctamente');
+        // Ensure place is not on the list yet
+        this.userData.checkIfPlaceBelongsToList(data, id)
+        .then(belongs => {
+          if (belongs) {
+            this.utils.showToast('El lugar ya pertenece a la lista seleccionada');
+          } else {
+            this.userData.addPlaceToList(data, id, name, address, this.imageDbUrl)
+            .then(() => {
+              this.utils.showToast('Añadido correctamente');
+            });
+          }
         });
       }
     });

@@ -2,6 +2,12 @@
 
   <ion-navbar color="primary">
     <ion-title *ngIf="place">{{ place.name }}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only
+        (click)="savePlace(place.place_id, place.name, place.formatted_address)">
+        <ion-icon name="archive"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -48,14 +54,6 @@
         <ion-icon name="link" item-start></ion-icon>
         <a item-end (click)="onLinkClicked(place.website)">{{ place.website }}</a>
       </ion-item>
-      
-      <div text-center>
-        <button ion-button icon-left outline
-          (click)="savePlace(place.place_id, place.name, place.formatted_address, imageUrl)">
-          <ion-icon name="archive"></ion-icon>
-          AÑADIR A LISTA
-        </button>
-      </div>
 
     </ion-card-content>
 
